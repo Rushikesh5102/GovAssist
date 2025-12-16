@@ -1,0 +1,173 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 4 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+5 0 obj
+<<
+/Contents 22 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 21 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+6 0 obj
+<<
+/Contents 23 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 21 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/Outlines 9 0 R /PageMode /UseNone /Pages 21 0 R /Type /Catalog
+>>
+endobj
+8 0 obj
+<<
+/Author () /CreationDate (D:20251202020808+05'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20251202020808+05'00') /Producer (xhtml2pdf <https://github.com/xhtml2pdf/xhtml2pdf/>) 
+  /Subject () /Title () /Trapped /False
+>>
+endobj
+9 0 obj
+<<
+/Count 4 /First 10 0 R /Last 10 0 R /Type /Outlines
+>>
+endobj
+10 0 obj
+<<
+/Count -5 /Dest [ 5 0 R /Fit ] /First 11 0 R /Last 20 0 R /Parent 9 0 R /Title (GovAssist AI: Deployment Guide)
+>>
+endobj
+11 0 obj
+<<
+/Dest [ 5 0 R /Fit ] /Next 12 0 R /Parent 10 0 R /Title (1. Environment Requirements)
+>>
+endobj
+12 0 obj
+<<
+/Dest [ 5 0 R /Fit ] /Next 13 0 R /Parent 10 0 R /Prev 11 0 R /Title (2. Environment Variables)
+>>
+endobj
+13 0 obj
+<<
+/Count -3 /Dest [ 5 0 R /Fit ] /First 14 0 R /Last 16 0 R /Next 17 0 R /Parent 10 0 R 
+  /Prev 12 0 R /Title (3. Docker Deployment \(Recommended\))
+>>
+endobj
+14 0 obj
+<<
+/Dest [ 5 0 R /Fit ] /Next 15 0 R /Parent 13 0 R /Title (Dockerfile \(Backend\))
+>>
+endobj
+15 0 obj
+<<
+/Dest [ 5 0 R /Fit ] /Next 16 0 R /Parent 13 0 R /Prev 14 0 R /Title (Dockerfile \(Frontend\))
+>>
+endobj
+16 0 obj
+<<
+/Dest [ 5 0 R /Fit ] /Parent 13 0 R /Prev 15 0 R /Title (Docker Compose)
+>>
+endobj
+17 0 obj
+<<
+/Count -2 /Dest [ 6 0 R /Fit ] /First 18 0 R /Last 19 0 R /Next 20 0 R /Parent 10 0 R 
+  /Prev 13 0 R /Title (4. Manual Deployment \(Linux\))
+>>
+endobj
+18 0 obj
+<<
+/Dest [ 6 0 R /Fit ] /Next 19 0 R /Parent 17 0 R /Title (Backend \(Systemd\))
+>>
+endobj
+19 0 obj
+<<
+/Dest [ 6 0 R /Fit ] /Parent 17 0 R /Prev 18 0 R /Title (Frontend \(Nginx\))
+>>
+endobj
+20 0 obj
+<<
+/Dest [ 6 0 R /Fit ] /Parent 10 0 R /Prev 17 0 R /Title (5. SSL/HTTPS)
+>>
+endobj
+21 0 obj
+<<
+/Count 2 /Kids [ 5 0 R 6 0 R ] /Type /Pages
+>>
+endobj
+22 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1761
+>>
+stream
+Gb!;dHZRn1&HCX[@],W.85^HhS_bB!,(iQ+K5hGtS#JK.$jS1MO%@+ohnCTao<?"2VtJPO/;_!np\o>;:_<.aoBXa.3:0*+Muo9;56`SN)>\3Sq^5`H52ndY:.mWVZ7;oJBf]*?@n=5:9gPGk$;hM.8d]r-6-aQu9Tk3?W&etn6'@)@1,7<8$)gJG>W/:EUrW`O8S43$5dDmqMC257L3H[]GY&6CbCg(\B&UVi5mklI2r\bKrrr7;1T`n(=qa9!L.[$<L.nS,XBG6%]k4,`WYXZAq4KF4.(Z55QPhadFkLB(&Y1A3fZ\G?f1Ir"L<cGqDR)[/U9AC!M5DkaQ:,=U'&Ib264S[JfgBX6-"$t%?5s0[WBL6'm_q;8:.c;jdp-EO<;/mu>M\(p9\XSSM"q:`H=X's9f4NS%+V)JPQVhZ[0X?e7a>kqV<d2)eq,@u[(TlH*Ngno2tJ/_BAO>6B_NO'q(VHg,pPUbIWMGh<;kp(V1*\iG)Pu&l=%mI:'XdIH%u'p:>'TsH28$"@3!;VM%<Ot2,:ss7UTN1NlV=ujgi8pA).IKOUGX\'?=fL`VSBqY]q#EZ^3gh]BjrdA'_iV*M2>LC?5&:TA%4[:`+h?pNV:,5rK!I<7$IM)Au0V$LVjM^YKV\EC\)`)7hPH;[tDo6"BXT,<WJ_(e>Kj1Cd^kl'+OTL+/(ck[u?Y0G!i,XQg`GGgtT/En(;8UG-hS/+.tM>n1:t_h"b#TV,MbZKH[%XGT5./5&".X@nA]@u51Jab_ldQfP9!l]fJJZl*g`$MZ,b\>ai8-6*q)h`A.bHZ7MNf:jrj-WmOdcHL$GT((Bkga%/0$]".dML23E1T<DAn(`<A\IUXiF80\qHg(SO]ABmkK6-p2D%Y''+dkh?YC%2Y<4M#t@5rC^#oD$hQ[mV(G'g@jLJI5h,:Vo8T2i)LN\fmCcg?XArT@amB+I&*MlXSZe<gNFT\]%OY;g8_pX6d[=p(k+\]Ei4+G=.]%HA20-MP3hK6+c:IKL\;Q<\4SnK9ph$EOhWK@N6d"1r'Ng,1fnH,$YJGeq4ANDG<&lii4XBS=9-*cDO[f9P2k7Lp2"Zq":0VEQTtO%M32>@sElA9luNLnS_LhGVh8Lg4"V?2P<TURm8f:HZ@3B_5pf7fiTP&:=]O1]>AE*lk0#K)_q(m6J$LVdWsg6:E&cGs;/Rm@?1>4fGqh"SM3EB,%Znk=PM5"TlB<$])H/"YDAu;Kk#$5mTeckROLq^h*R5>UIa!')^6@%JVI:;#+[JS)8M/0FkPBITsoB(/QUB]3\n)_tHYM*X!W:;7lQVG1gLM@2-_.#^'#"VY^2:9U.FSYf,]+dMYe)ktt!gQW`DL@XG>(4HAhqBW/O^FC5>cs%3C=0c5QgDGjbZB9="gpm&Y>gma:H5V^,2M)4g/ng+SE+OqHf60+A_\3a><!9/9#E*\?kGenU1&==OTKQ/".[J\7+>pd*Cb'qUN.3Pc?;`EjhS@1IQr>B!9mQ*8iiXRg.a7]LMZ?q#\E^*edfh+4Fs8Fk!;+skbrm*<Sn$G9=9')[fp,+FeLcT%$N;*?>W6)V:e0fn98aWe`)`?\^mIFqth=3JpYhR!07eG;_F"MPTSsXK'*'_Xn6qg!LYl\&u^]VGc+#"cpK.L0q%;CpS?mN`^)"@mRP<gNiJC+gbMo*+Mj*k\gjC,7@1JriKjC*Z',Pk-E+4!YT@_R9n2$)+WDt\![co<nV4J&ab0.k5\lI%puGiW'GO*7BSSGWK?0)\Z~>endstream
+endobj
+23 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 1012
+>>
+stream
+Gb!#[>B?5u'RodXS>XqK`eD)+9-0;:ksO1(,CT.eEMKnH:foUSq]6;B)N;KXj)c+Afus3bqp%nC2I<ceNY6m.!3@=Iarn2!.YrW5%W6pUTABi<[%>MfiPH<^Gg[sE3ZQa8)5]*\oc"kcdW8gF_k$&K)!/\UW!>TiN"P?rdYp%oV+K"6N"]fET/!uOQf/F-]B'.UF6Eu5ha5!`QgdFTbB04%D.(f,MtQ@DEcD,r0*j1'fV8fIkQUGc-e.0H^ba\6Nc;NW+XTI&,/bN_,JI@`\#ZQ_Go]AhQ(B/)n[:,$R@SkffkC=qD#[tEBJ'n)[G.H:1=W4t_M+Y=mi]jpT&9-b:ZHJb\9LP9Ctf3?"R69'K)84%MR$l";>C>3XVG_-4PINk<G3'\.UU4.mM.D*'i].R+g5PQ/S--,fTB:nXa.JfM]sdt@(PBde9c<!fTiO"a39#\a/g6#dO$kpJ[lN9K!RAUa#0$f4EsQqRQcdf3hfE=,b^eMcm0"D_D8*u<dJUW@r8?0rA<+;Af41W=C:"h$jMWs0S%1n0Dq67\S3>S9A?m:lfF_2f=POEGDlit&R3>;NJUj[:6u;O_:XFOBiAB?Ah!)`+>QSd]BOs!:,gN,Mmq&[GQRJm4Mq-1oAqZ%[FlkMn+0YRONJSN&1g3K=1WM#cJC@):>CnLNU'TW4:mH49-@SUR$PX\=nBq\>/pao0INQ\eFE0aZe**V29RBp[LZgD-I&tNY%JSV<rK=,dKbuE1ZUU@Xj(JL=K4D4j.'&9NiA&L%MA&lqU1@4I36d:\4m_0-')UXa,[rg-B>*\TE)&YOQG^o>7E+,i^70+djSIeV<=k[1#sq1+.b_<CkBshni?onj#cRB&H!Ah4c@+7m^$sl3"tS&Sc"9g5[fSJa'gkh'Wg-%*9iVf.rL\+k@^J,cXMkMh5K+&;q#b>r1ft0k5oODP]&?6\_-^o<;Nh%1k(C+/5'Ji8BYM@@Bk?_KL\*3A`^)G%/-[4^J>^meo/r_e:ZUb>N?kr~>endstream
+endobj
+xref
+0 24
+0000000000 65535 f 
+0000000073 00000 n 
+0000000124 00000 n 
+0000000231 00000 n 
+0000000343 00000 n 
+0000000448 00000 n 
+0000000653 00000 n 
+0000000858 00000 n 
+0000000943 00000 n 
+0000001195 00000 n 
+0000001268 00000 n 
+0000001402 00000 n 
+0000001510 00000 n 
+0000001628 00000 n 
+0000001798 00000 n 
+0000001901 00000 n 
+0000002018 00000 n 
+0000002113 00000 n 
+0000002277 00000 n 
+0000002377 00000 n 
+0000002476 00000 n 
+0000002569 00000 n 
+0000002635 00000 n 
+0000004488 00000 n 
+trailer
+<<
+/ID 
+[<8c088574dcf6a2e861fbe0e9621b16c9><8c088574dcf6a2e861fbe0e9621b16c9>]
+% ReportLab generated PDF document -- digest (http://www.reportlab.com)
+
+/Info 8 0 R
+/Root 7 0 R
+/Size 24
+>>
+startxref
+5592
+%%EOF

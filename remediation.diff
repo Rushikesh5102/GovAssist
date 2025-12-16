@@ -1,0 +1,27 @@
+# Remediation Diff Summary
+
+## Frontend Changes
+- **Added**: `src/components/Input/VirtualKeyboard.tsx` (Hindi/Marathi support)
+- **Added**: `src/components/ChatWindow/MessageInput.tsx` (Voice recording, File upload)
+- **Added**: `src/pages/SharePage.jsx` (Public shared chat view)
+- **Added**: `src/pages/AdminPage.jsx` (Admin dashboard with updates)
+- **Modified**: `src/App.jsx` (Added routes, lazy loading)
+- **Modified**: `src/styles/global.css` (Glassmorphism, dark mode)
+
+## Backend Changes
+- **Added**: `app/api/endpoints/voice.py` (Whisper STT endpoint)
+- **Added**: `app/api/endpoints/share.py` (Share chat logic)
+- **Added**: `app/api/endpoints/admin.py` (Admin approval workflow)
+- **Added**: `app/services/file_processor.py` (OCR, PDF, Docx handling)
+- **Added**: `app/services/crawler_service.py` (Mock scheme crawler)
+- **Modified**: `app/services/rag_service.py` (Structured prompts, history windowing)
+- **Modified**: `app/api/api.py` (Included new routers)
+- **Modified**: `requirements.txt` (Added `openai-whisper`, `python-docx`, `pymupdf`)
+
+## Security Enhancements
+- **Auth**: Verified JWT implementation and bcrypt hashing.
+- **RBAC**: Enforced `is_admin` checks on admin endpoints.
+- **Sanitization**: Implemented input/output filtering (previous steps).
+
+## Infrastructure
+- **Tests**: Added `backend/tests/test_api.py` for automated verification.

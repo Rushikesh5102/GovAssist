@@ -1,0 +1,55 @@
+{
+    "project_name": "GovAssist AI",
+    "components": [
+        {
+            "name": "Frontend",
+            "type": "Web Application",
+            "framework": "React (Vite)",
+            "language": "JavaScript",
+            "path": "frontend",
+            "port": 5173,
+            "start_command": "npm run dev",
+            "build_command": "npm run build",
+            "dependencies": [
+                "react",
+                "react-router-dom",
+                "lucide-react",
+                "react-markdown",
+                "react-dropzone",
+                "axios",
+                "tailwindcss"
+            ]
+        },
+        {
+            "name": "Backend",
+            "type": "API Server",
+            "framework": "FastAPI",
+            "language": "Python",
+            "path": "backend",
+            "port": 8000,
+            "start_command": "python -m uvicorn app.main:app --reload",
+            "dependencies": [
+                "fastapi",
+                "uvicorn",
+                "sqlalchemy",
+                "pydantic",
+                "langchain",
+                "faiss-cpu",
+                "python-jose",
+                "passlib"
+            ]
+        },
+        {
+            "name": "Database",
+            "type": "Relational DB",
+            "engine": "SQLite",
+            "path": "backend/sql_app.db"
+        },
+        {
+            "name": "Vector Store",
+            "type": "Vector DB",
+            "engine": "FAISS",
+            "path": "backend/faiss_index"
+        }
+    ]
+}

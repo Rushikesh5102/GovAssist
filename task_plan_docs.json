@@ -1,0 +1,86 @@
+{
+  "mission": "Full Documentation Suite",
+  "output_dir": "docs/complete-suite",
+  "documents": [
+    {
+      "id": 1,
+      "title": "Project Overview & Vision",
+      "filename": "1_Project_Overview.md"
+    },
+    {
+      "id": 2,
+      "title": "Full Features Documentation",
+      "filename": "2_Features.md"
+    },
+    {
+      "id": 3,
+      "title": "Technical Architecture Guide",
+      "filename": "3_Architecture.md"
+    },
+    {
+      "id": 4,
+      "title": "UML Diagram Pack",
+      "filename": "4_UML_Diagrams.md"
+    },
+    {
+      "id": 5,
+      "title": "API Documentation",
+      "filename": "5_API_Reference.md"
+    },
+    {
+      "id": 6,
+      "title": "Database Schema Manual",
+      "filename": "6_Database_Schema.md"
+    },
+    {
+      "id": 7,
+      "title": "Developer Guide",
+      "filename": "7_Developer_Guide.md"
+    },
+    {
+      "id": 8,
+      "title": "Admin Manual",
+      "filename": "8_Admin_Manual.md"
+    },
+    {
+      "id": 9,
+      "title": "User Manual",
+      "filename": "9_User_Manual.md"
+    },
+    {
+      "id": 10,
+      "title": "Testing & QA Documentation",
+      "filename": "10_Testing_QA.md"
+    },
+    {
+      "id": 11,
+      "title": "Performance Optimization Report",
+      "filename": "11_Performance_Report.md"
+    },
+    {
+      "id": 12,
+      "title": "Deployment Guide",
+      "filename": "12_Deployment_Guide.md"
+    },
+    {
+      "id": 13,
+      "title": "Security & Compliance Document",
+      "filename": "13_Security_Compliance.md"
+    },
+    {
+      "id": 14,
+      "title": "Changelog + Migration Notes",
+      "filename": "14_Changelog.md"
+    },
+    {
+      "id": 15,
+      "title": "Executive Summary",
+      "filename": "15_Executive_Summary.md"
+    }
+  ],
+  "formats": [
+    "md",
+    "pdf",
+    "zip"
+  ]
+}

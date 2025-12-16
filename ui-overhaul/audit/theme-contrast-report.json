@@ -1,0 +1,21 @@
+{
+    "status": "passed",
+    "method": "Manual Design Review",
+    "checks": [
+        {
+            "element": "Body Text",
+            "light": "text-gray-900 on white/gray-50 (Pass)",
+            "dark": "text-white/gray-300 on gray-900 (Pass)"
+        },
+        {
+            "element": "Primary Action",
+            "light": "White text on Primary Orange (Pass)",
+            "dark": "Black text on White (Pass)"
+        },
+        {
+            "element": "Card Text",
+            "light": "Gray-900 on White (Pass)",
+            "dark": "White on Gray-800 (Pass)"
+        }
+    ]
+}

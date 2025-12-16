@@ -1,0 +1,36 @@
+[
+    {
+        "id": "pm-kisan",
+        "name": "PM-KISAN",
+        "description": "Income support of Rs 6000 per year for farmers.",
+        "rules": {
+            "occupation": "farmer",
+            "land_holding_hectares": {
+                "max": 2.0
+            },
+            "income_tax_payer": false
+        }
+    },
+    {
+        "id": "ayushman-bharat",
+        "name": "Ayushman Bharat",
+        "description": "Health insurance cover of Rs 5 lakhs per family per year.",
+        "rules": {
+            "income_annual": {
+                "max": 250000
+            },
+            "has_government_job": false
+        }
+    },
+    {
+        "id": "sukanya-samriddhi",
+        "name": "Sukanya Samriddhi Yojana",
+        "description": "Savings scheme for the girl child.",
+        "rules": {
+            "gender": "female",
+            "age": {
+                "max": 10
+            }
+        }
+    }
+]

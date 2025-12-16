@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+    body {
+        @apply bg-[#030310] text-gray-100 antialiased;
+        background-image:
+            radial-gradient(circle at 15% 15%, rgba(255, 153, 51, 0.08) 0%, transparent 25%),
+            radial-gradient(circle at 85% 85%, rgba(19, 136, 8, 0.08) 0%, transparent 25%),
+            radial-gradient(circle at 50% 50%, rgba(0, 0, 128, 0.15) 0%, transparent 60%);
+        background-attachment: fixed;
+    }
+
+    ::selection {
+        background-color: #FF9933;
+        /* Saffron */
+        color: white;
+    }
+}
+
+@layer components {
+    .glass-panel {
+        background-color: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 1rem;
+    }
+
+    .glass-input {
+        background-color: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-input::placeholder {
+        color: #9ca3af;
+    }
+
+    .glass-input:focus {
+        border-color: #FF9933;
+        box-shadow: 0 0 0 1px #FF9933;
+        outline: none;
+    }
+
+    .glass-button-primary {
+        @apply bg-gradient-to-r from-saffron to-saffron-dim text-white font-medium border border-saffron-glow/30 hover:shadow-neon-saffron transition-all duration-300 backdrop-blur-sm;
+    }
+
+    .text-gradient-tricolor {
+        background: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+}
