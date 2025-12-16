@@ -1,9 +1,8 @@
 import React from 'react';
-import { Navigation } from 'lucide-react';
 
 const ContactPage = () => {
     return (
-        <div className="min-h-screen pt-20 px-4 max-w-5xl mx-auto pb-12">
+        <div className="min-h-screen pt-20 px-4 max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-white text-center">Contact Us</h1>
             <div className="glass-panel p-8">
                 <div className="grid md:grid-cols-2 gap-12">
@@ -66,7 +65,7 @@ const ContactPage = () => {
                     </div>
                 </div>
 
-                <div className="mt-12 w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-lg border border-white/10 relative">
+                <div className="mt-12 w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-lg border border-white/10">
                     <iframe
                         width="100%"
                         height="100%"
@@ -75,18 +74,9 @@ const ContactPage = () => {
                         marginHeight="0"
                         marginWidth="0"
                         scrolling="no"
-                        src="https://maps.google.com/maps?q=Ajeenkya%20DY%20Patil%20University&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+                        src="https://maps.google.com/maps?q=Ajeenkya%20DY%20Patil%20University&t=&z=15&ie=UTF8&iwloc=&output=embed"
                         style={{ filter: "invert(90%) hue-rotate(180deg)" }}
                     ></iframe>
-                    <a
-                        href="https://www.google.com/maps/dir/?api=1&destination=Ajeenkya+DY+Patil+University"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 glass-button-primary flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white hover:scale-105 transition-transform shadow-lg z-10"
-                    >
-                        <Navigation size={16} />
-                        Get Directions
-                    </a>
                 </div>
             </div>
         </div>

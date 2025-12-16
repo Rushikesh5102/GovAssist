@@ -10,16 +10,6 @@ const Layout = ({ children }) => {
     const [user, setUser] = useState(null);
     const [history, setHistory] = useState([]);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            // Decode token to get user info (mock for now or fetch profile)
-            // For now, just assume logged in. Ideally fetch /api/auth/me
-            setUser({ name: 'User', email: 'user@example.com' }); // Placeholder
-            fetchHistory();
-        }
-    }, []);
-
     const fetchHistory = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -36,6 +26,16 @@ const Layout = ({ children }) => {
             console.error("Failed to fetch history", error);
         }
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Decode token to get user info (mock for now or fetch profile)
+            // For now, just assume logged in. Ideally fetch /api/auth/me
+            setUser({ name: 'User', email: 'user@example.com' }); // Placeholder
+            fetchHistory();
+        }
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');

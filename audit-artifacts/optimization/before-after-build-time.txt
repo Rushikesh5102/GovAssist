@@ -1,0 +1,3 @@
+Before: [Not Recorded]
+After: [Standard Vite Build Time]
+Optimizations: Reduced file I/O by removing unused files.

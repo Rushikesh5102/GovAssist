@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Plus, MessageSquare, Search, Layout, Settings, LogOut, User, Box } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+
 
 const Sidebar = ({ className = "" }) => {
     const navigate = useNavigate();
-    const { isDarkMode } = useTheme();
+
 
     const menuItems = [
         { icon: MessageSquare, label: 'Chats', path: '/chat' },

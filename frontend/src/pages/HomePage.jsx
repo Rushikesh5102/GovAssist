@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+const InteractiveHero = lazy(() => import('../components/Hero3D/InteractiveHero'));
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, BookOpen, MessageSquare, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -8,7 +9,9 @@ const HomePage = () => {
         <div className="min-h-screen transition-colors">
             {/* Hero Section */}
             <div className="relative overflow-hidden">
-                {/* Hero Content */}
+                <Suspense fallback={<div className="absolute inset-0 bg-transparent" />}>
+                    <InteractiveHero />
+                </Suspense>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-16 lg:pt-32 lg:pb-24">
                     <div className="text-center">
@@ -60,6 +63,7 @@ const HomePage = () => {
                 </div>
             </div>
 
+
             {/* Features Section */}
             <div className="py-16 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,30 +107,30 @@ const HomePage = () => {
             </div>
 
             {/* Subscribe Section */}
-            <div className="py-8">
+            <div className="py-16">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center glass-panel p-6"
+                    className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center glass-panel p-12"
                 >
-                    <h2 className="text-2xl font-bold text-white mb-2">
+                    <h2 className="text-3xl font-bold text-white mb-4">
                         Stay Updated
                     </h2>
-                    <p className="text-gray-300 mb-4 text-sm">
+                    <p className="text-gray-300 mb-8">
                         Get the latest updates on government schemes and new features directly in your inbox.
                     </p>
-                    <form className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <form className="flex flex-col sm:flex-row gap-4 justify-center">
                         <input
                             type="email"
                             placeholder="Enter your email"
-                            className="glass-input px-4 py-2 rounded-lg w-full sm:w-auto min-w-[300px] outline-none text-sm"
+                            className="glass-input px-6 py-3 rounded-xl w-full sm:w-auto min-w-[300px] outline-none"
                             required
                         />
                         <button
                             type="submit"
-                            className="glass-button-primary px-6 py-2 rounded-lg transform hover:-translate-y-1 text-sm"
+                            className="glass-button-primary px-8 py-3 rounded-xl transform hover:-translate-y-1"
                         >
                             Subscribe
                         </button>

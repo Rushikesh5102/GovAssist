@@ -1,0 +1,9 @@
+[
+    "frontend/src/components/Layout.jsx",
+    "frontend/src/components/CustomCursor.jsx",
+    "frontend/src/components/Hero3D/InteractiveHero.jsx",
+    "frontend/src/components/Nav/Sidebar.jsx",
+    "frontend/src/components/ThemeToggle.jsx",
+    "frontend/src/components/ErrorBoundary.jsx",
+    "frontend/src/components/ChatWindow/ChatWindow.tsx"
+]

@@ -1,0 +1,30 @@
+{
+    "project": "GovAssist",
+    "goal": "Optimization & Cleanup",
+    "strategies": {
+        "frontend": [
+            "Remove unused React components (verify imports)",
+            "Remove console.log and debug comments",
+            "Consolidate CSS (check App.css vs index.css)",
+            "Optimize images in assets (if any large ones)",
+            "Check for duplicate logic in hooks/context"
+        ],
+        "backend": [
+            "Remove unused Python files in app/",
+            "Remove unused dependencies from requirements.txt",
+            "Remove print statements used for debugging",
+            "Optimize API routes"
+        ],
+        "general": [
+            "Remove temporary files in root",
+            "Ensure clean build"
+        ]
+    },
+    "execution_steps": [
+        "1. Static Code Analysis (Linting/Grep)",
+        "2. File Removal (Unused files)",
+        "3. Code Refactoring (Imports/Comments)",
+        "4. Verification (Build/Run)",
+        "5. Reporting"
+    ]
+}

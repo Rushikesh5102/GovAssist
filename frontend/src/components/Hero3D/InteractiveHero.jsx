@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -67,7 +67,6 @@ const InteractiveHero = () => {
     const isDark = theme === 'dark';
 
     const particleColor = isDark ? '#FF9933' : '#FF9933'; // Primary Orange
-    const bgColor = isDark ? '#111827' : '#f9fafb'; // Match tailwind gray-900 / gray-50
 
     return (
         <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">

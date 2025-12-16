@@ -1,0 +1,179 @@
+{
+    "mission": "GovAssist: Full Fix + Feature Delivery",
+    "steps": [
+        {
+            "step": "A",
+            "name": "Env & Inventory",
+            "subtasks": [
+                "Activate dev envs",
+                "Produce inventory.json",
+                "Detect tech stack"
+            ],
+            "complexity": "small"
+        },
+        {
+            "step": "B",
+            "name": "Immediate Critical Fixes",
+            "subtasks": [
+                "Fix blank white page (Port 5102)",
+                "Fix lagging/performance",
+                "Bundle analysis"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "C",
+            "name": "Garbage/Trash Response Handling",
+            "subtasks": [
+                "Input sanitizer pipeline",
+                "Output post-filter",
+                "Logging"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "D",
+            "name": "Responsive Mobile UI & Spacing",
+            "subtasks": [
+                "Responsive breakpoints",
+                "Design tokens & spacing",
+                "Screenshots"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "E",
+            "name": "Multi-Language Input & Keyboards",
+            "subtasks": [
+                "Language selector",
+                "IME/Transliteration integration",
+                "Keyboard hints"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "F",
+            "name": "Logo & Brand",
+            "subtasks": [
+                "Update logo (tricolor)",
+                "High contrast variants"
+            ],
+            "complexity": "small"
+        },
+        {
+            "step": "G",
+            "name": "Pages: Make Coming Soon Pages Live",
+            "subtasks": [
+                "Populate static pages",
+                "Home hero CTAs",
+                "Subscribe form"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "H",
+            "name": "Chat Features",
+            "subtasks": [
+                "Copy/Edit/Share/Temp Chat UI & Backend"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "I",
+            "name": "Upload Button: Advanced Support",
+            "subtasks": [
+                "Frontend multi-file/folder",
+                "Backend OCR/Transcription",
+                "RAG ingestion"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "J",
+            "name": "AI Answers: Links & Step-by-Step",
+            "subtasks": [
+                "RAG prompt update",
+                "Source citation",
+                "Explainability toggle"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "K",
+            "name": "Conversation Continuity & Memory",
+            "subtasks": [
+                "Session memory",
+                "Summarization job",
+                "Memory manager"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "L",
+            "name": "Schemes: Live Updates",
+            "subtasks": [
+                "Crawler pipeline",
+                "Change detection",
+                "Admin approval UI"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "M",
+            "name": "Admin Panel: Dark Theme & Access Control",
+            "subtasks": [
+                "Dark theme",
+                "RBAC implementation",
+                "Admin route protection"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "N",
+            "name": "Auth / Data Storage Security",
+            "subtasks": [
+                "Audit auth/DB",
+                "Secure passwords",
+                "Encryption check"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "O",
+            "name": "STT / TTS / Voice Suite",
+            "subtasks": [
+                "Frontend Mic/TTS",
+                "Backend Whisper/TTS endpoints"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "P",
+            "name": "Stability & Stress Testing",
+            "subtasks": [
+                "Logs & error capture",
+                "Memory leak detection",
+                "Stress testing"
+            ],
+            "complexity": "medium"
+        },
+        {
+            "step": "Q",
+            "name": "QA, Tests & Acceptance",
+            "subtasks": [
+                "Automated tests",
+                "Acceptance verification"
+            ],
+            "complexity": "large"
+        },
+        {
+            "step": "R",
+            "name": "Documentation & Final Report",
+            "subtasks": [
+                "Final report",
+                "Remediation diff"
+            ],
+            "complexity": "small"
+        }
+    ]
+}

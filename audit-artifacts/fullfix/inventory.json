@@ -1,0 +1,37 @@
+{
+    "frontend": {
+        "framework": "React",
+        "build_tool": "Vite",
+        "port": 5102,
+        "start_command": "npm run dev",
+        "dependencies": [
+            "react",
+            "react-dom",
+            "react-router-dom",
+            "framer-motion",
+            "lucide-react",
+            "axios",
+            "react-markdown",
+            "tailwindcss"
+        ]
+    },
+    "backend": {
+        "framework": "FastAPI",
+        "server": "Uvicorn",
+        "port": 8000,
+        "start_command": "python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+        "dependencies": [
+            "fastapi",
+            "sqlalchemy",
+            "langchain",
+            "faiss-cpu",
+            "sentence-transformers",
+            "pymupdf",
+            "pytesseract"
+        ]
+    },
+    "database": {
+        "type": "SQLite (inferred from lack of DB env vars, to be confirmed)",
+        "orm": "SQLAlchemy"
+    }
+}

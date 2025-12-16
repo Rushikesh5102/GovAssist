@@ -1,0 +1,21 @@
+# Task: Run the Project
+
+- [x] Identify project type and dependencies <!-- id: 0 -->
+    - [x] Analyze `run_local.bat` and `docker-compose.yml`
+    - [x] Check backend and frontend technologies
+- [x] Install dependencies (if necessary) <!-- id: 1 -->
+    - [x] Backend (pip)
+    - [x] Frontend (npm)
+- [x] Run the project <!-- id: 2 -->
+- [x] Debug AI responsiveness <!-- id: 3 -->
+    - [x] Check backend logs
+    - [x] Verify API key configuration
+    - [x] Fix frontend proxy configuration
+- [/] Debug infinite loading <!-- id: 4 -->
+    - [x] Add debug logs to backend
+    - [/] Analyze logs
+    - [x] Analyze logs
+    - [x] Fix hanging issue
+- [x] Restart Project <!-- id: 5 -->
+    - [x] Kill existing processes
+    - [x] Run `run_local.bat`

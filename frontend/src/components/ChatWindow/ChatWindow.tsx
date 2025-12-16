@@ -214,7 +214,7 @@ const ChatWindow = () => {
     };
 
     const handleFeedback = (type) => {
-        console.log("Feedback:", type);
+
         // TODO: Send feedback to backend
     };
 

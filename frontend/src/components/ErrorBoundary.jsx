@@ -6,7 +6,7 @@ class ErrorBoundary extends React.Component {
         this.state = { hasError: false, error: null, errorInfo: null };
     }
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError() {
         return { hasError: true };
     }
 
@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component {
                         >
                             Go Home
                         </button>
-                        {process.env.NODE_ENV === 'development' && (
+                        {import.meta.env.DEV && (
                             <details className="mt-4 text-left bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-48 text-xs font-mono text-red-600 dark:text-red-400">
                                 <summary className="cursor-pointer mb-2 font-semibold">Error Details</summary>
                                 {this.state.error && this.state.error.toString()}

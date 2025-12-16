@@ -40,7 +40,7 @@ const CustomCursor = () => {
 
     // Re-attach listeners when DOM changes (basic mutation observer alternative for dynamic content)
     useEffect(() => {
-        const observer = new MutationObserver((mutations) => {
+        const observer = new MutationObserver(() => {
             const clickables = document.querySelectorAll('a, button, input, select, textarea, .cursor-hover');
             clickables.forEach(el => {
                 // simplified: just re-adding mainly for new elements, 

@@ -1,0 +1,49 @@
+Î{
+    "project": "GovAssist AI - Minimalist UI Overhaul",
+    "vision": "Minimal, clean, fast, modern experience with subtle Indian identity and smooth 3D animations.",
+    "targets": {
+        "hero": {
+            "path": "/src/components/Hero/Hero.tsx",
+            "features": [
+                "Subtle 3D Element",
+                "No Clipping",
+                "Fluid Scaling"
+            ]
+        },
+        "brand": {
+            "path": "/src/components/Brand/GovAssistWordmark.tsx",
+            "features": [
+                "Tricolor Glow",
+                "Flat Lettering",
+                "No Overlap"
+            ]
+        },
+        "cards": {
+            "path": "/src/components/UI/FeatureCard.tsx",
+            "features": [
+                "Small Flat Icons",
+                "Lift on Hover",
+                "Readable Headings"
+            ]
+        },
+        "cursor": {
+            "path": "/src/components/UI/MinimalCursor.tsx",
+            "features": [
+                "Small Circular",
+                "Interactive States",
+                "Mobile Hidden"
+            ]
+        },
+        "theme": {
+            "contrast": "High readability in Light & Dark modes",
+            "palette": "Soft accents + neutrals + highlights"
+        }
+    },
+    "performance": {
+        "3d_engine": "@react-three/fiber",
+        "optimization": [
+            "Low-poly shapes",
+            "Lazy loading"
+        ]
+    }
+}Î*cascade082=file:///c:/Users/Rushi/Desktop/GovAssist/minimal_ui_plan.json
