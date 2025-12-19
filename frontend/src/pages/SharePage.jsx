@@ -44,7 +44,7 @@ const SharePage = () => {
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4">
                         <Bot size={24} />
                     </div>
-                    <h1 className="text-2xl font-bold mb-2">{data.title || 'Shared Conversation'}</h1>
+                    <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{data.title || 'Shared Conversation'}</h1>
                     <p className="text-gray-500 text-sm">
                         Shared via GovAssist AI • {new Date(data.created_at).toLocaleDateString()}
                     </p>

@@ -13,7 +13,8 @@ def trigger_crawl(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    if not current_user.is_admin:
+    # Strict check: Only the specific email is allowed for admin actions
+    if not current_user.is_admin or current_user.email != "Pattiwarrushikesh5102@gmail.com":
         raise HTTPException(status_code=403, detail="Not authorized")
     
     count = CrawlerService.run_mock_crawl(db)
@@ -25,7 +26,7 @@ def get_updates(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    if not current_user.is_admin:
+    if not current_user.is_admin or current_user.email != "Pattiwarrushikesh5102@gmail.com":
         raise HTTPException(status_code=403, detail="Not authorized")
         
     updates = db.query(SchemeUpdate).filter(SchemeUpdate.status == status).all()
@@ -38,7 +39,7 @@ def approve_reject_update(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    if not current_user.is_admin:
+    if not current_user.is_admin or current_user.email != "Pattiwarrushikesh5102@gmail.com":
         raise HTTPException(status_code=403, detail="Not authorized")
         
     update = db.query(SchemeUpdate).filter(SchemeUpdate.id == update_id).first()

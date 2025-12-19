@@ -1,18 +1,27 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 import { Sun, Moon, Menu, X, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
+import logo from '../../assets/logo.png';
+
+// ... (existing imports)
 
 interface TopbarProps {
     onOpenSettings: () => void;
 }
 
 const Topbar = ({ onOpenSettings }: TopbarProps) => {
+    const { t } = useTranslation();
     const { isDarkMode, toggleTheme } = useTheme();
+    const { user, logout } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const location = useLocation();
+    const isAdmin = location.pathname.startsWith('/admin');
     const profileRef = useRef<HTMLDivElement>(null);
 
     // Close profile dropdown when clicking outside
@@ -27,23 +36,26 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
     }, []);
 
     const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'Schemes', path: '/schemes' },
-        { name: 'Eligibility', path: '/eligibility' },
-        { name: 'Documents', path: '/upload' },
+        { name: t('nav.home'), path: '/' },
+        { name: t('nav.schemes'), path: '/schemes' },
+        { name: t('nav.eligibility'), path: '/eligibility' },
+        { name: t('nav.documents'), path: '/upload' },
         // { name: 'Chat', path: '/chat' }, // Removed Chat from main nav since it's a separate app-like experience now
-        { name: 'Contact', path: '/contact' },
+        { name: t('nav.about'), path: '/about' },
+        { name: t('nav.contact'), path: '/contact' },
     ];
 
     return (
-        <nav className="fixed w-full z-50 transition-all duration-300 bg-[#050510]/60 backdrop-blur-xl border-b border-glass-border">
+        <nav className="fixed w-full z-50 transition-all duration-300 bg-gray-900/95 dark:bg-[#050510]/80 backdrop-blur-xl border-b border-white/10 dark:border-glass-border">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-saffron via-white to-indiaGreen flex items-center justify-center text-navy font-bold text-lg shadow-lg group-hover:shadow-saffron-glow/40 transition-shadow ring-1 ring-white/20">
-                            G
-                        </div>
+                        <img
+                            src={logo}
+                            alt="GovAssist Logo"
+                            className="h-10 w-auto object-contain transition-transform hover:scale-105 drop-shadow-[0_0_8px_rgba(0,123,255,0.8)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                        />
                         <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-saffron via-white to-indiaGreen tracking-tight">
                             GovAssist
                         </span>
@@ -58,8 +70,8 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                     key={link.path}
                                     to={link.path}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                                        ? 'text-saffron bg-glass-whiteHover shadow-glass border border-glass-border/30'
-                                        : 'text-gray-300 hover:text-white hover:bg-glass-white border border-transparent hover:border-glass-border/20'
+                                        ? 'text-saffron bg-white/10 shadow-glass border border-white/20'
+                                        : 'text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/20'
                                         }`}
                                 >
                                     {link.name}
@@ -68,85 +80,101 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                         })}
 
                         {/* New Chat Button (Highlighted) */}
-                        <Link
-                            to="/chat"
-                            target="_blank"
-                            className="ml-2 px-4 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-saffron to-saffron-dim text-white hover:shadow-neon-saffron transition-all transform hover:-translate-y-0.5 border border-saffron-glow/30"
-                        >
-                            Try AI Assistant
-                        </Link>
+                        {/* Sign Up Button (Only if not logged in) */}
+                        {!user && (
+                            <Link
+                                to="/signup"
+                                className="ml-2 px-4 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-saffron to-saffron-dim text-white hover:shadow-neon-saffron transition-all transform hover:-translate-y-0.5 border border-saffron-glow/30"
+                            >
+                                {t('auth.signup.btn_signup')}
+                            </Link>
+                        )}
                     </div>
 
                     {/* Right Actions */}
                     <div className="hidden md:flex items-center gap-3">
+                        {!isAdmin && <LanguageSwitcher />}
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-glass-white transition-colors"
+                            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
                             aria-label="Toggle Theme"
                         >
                             {isDarkMode ? <Sun size={20} className="text-saffron" /> : <Moon size={20} className="text-gray-400" />}
                         </button>
 
-                        {/* Profile Dropdown */}
-                        <div className="relative" ref={profileRef}>
-                            <button
-                                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                className="flex items-center gap-2 p-1 pr-3 rounded-full border border-glass-border hover:bg-glass-white transition-all bg-glass-white/5"
-                            >
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-white font-medium text-sm ring-1 ring-white/20">
-                                    R
-                                </div>
-                                <ChevronDown size={14} className={`text-gray-400 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
-                            </button>
+                        {user ? (
+                            /* Profile Dropdown */
+                            <div className="relative" ref={profileRef}>
+                                <button
+                                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                    className="flex items-center gap-2 p-1 pr-3 rounded-full border border-white/10 hover:bg-white/10 transition-all bg-white/5"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-white font-medium text-sm ring-1 ring-white/20">
+                                        {user.full_name?.charAt(0).toUpperCase() || 'U'}
+                                    </div>
+                                    <ChevronDown size={14} className={`text-gray-400 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+                                </button>
 
-                            <AnimatePresence>
-                                {isProfileOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute right-0 mt-2 w-56 glass-panel py-2 z-50 origin-top-right ring-1 ring-black ring-opacity-5"
-                                    >
-                                        <div className="px-4 py-3 border-b border-glass-border">
-                                            <p className="text-sm font-medium text-white">Rushi</p>
-                                            <p className="text-xs text-gray-400 truncate">rushi@example.com</p>
-                                        </div>
-                                        <div className="py-1">
-                                            <Link to="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-glass-whiteHover hover:text-white transition-colors">
-                                                <User size={16} /> Profile
-                                            </Link>
-                                            <button
-                                                onClick={() => {
-                                                    setIsProfileOpen(false);
-                                                    onOpenSettings();
-                                                }}
-                                                className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-glass-whiteHover hover:text-white transition-colors"
-                                            >
-                                                <Settings size={16} /> Settings
-                                            </button>
-                                        </div>
-                                        <div className="border-t border-glass-border mt-1 pt-1">
-                                            <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors">
-                                                <LogOut size={16} /> Sign out
-                                            </button>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                                <AnimatePresence>
+                                    {isProfileOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute right-0 mt-2 w-56 bg-gray-900 dark:bg-[#1a1a2e] border border-white/10 shadow-xl rounded-2xl py-2 z-50 origin-top-right ring-1 ring-black ring-opacity-5"
+                                        >
+                                            <div className="px-4 py-3 border-b border-glass-border">
+                                                <p className="text-sm font-medium text-white">{user.full_name}</p>
+                                                <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                                            </div>
+                                            <div className="py-1">
+                                                <Link to="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
+                                                    <User size={16} /> {t('nav.profile')}
+                                                </Link>
+                                                <button
+                                                    onClick={() => {
+                                                        setIsProfileOpen(false);
+                                                        onOpenSettings();
+                                                    }}
+                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                                                >
+                                                    <Settings size={16} /> {t('nav.settings')}
+                                                </button>
+                                            </div>
+                                            <div className="border-t border-glass-border mt-1 pt-1">
+                                                <button
+                                                    onClick={logout}
+                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                                                >
+                                                    <LogOut size={16} /> {t('nav.sign_out')}
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+                            >
+                                {t('auth.login.title', 'Sign In')}
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
                     <div className="md:hidden flex items-center gap-2">
+                        {!isAdmin && <LanguageSwitcher />}
                         <button
                             onClick={toggleTheme}
-                            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-glass-white transition-colors"
+                            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
                         >
                             {isDarkMode ? <Sun size={20} className="text-saffron" /> : <Moon size={20} className="text-gray-400" />}
                         </button>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-glass-white transition-colors"
+                            className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
                         >
                             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -178,12 +206,11 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                 </Link>
                             ))}
                             <Link
-                                to="/chat"
-                                target="_blank"
+                                to="/signup"
                                 onClick={() => setIsMenuOpen(false)}
                                 className="block px-3 py-3 rounded-lg text-base font-medium text-primary hover:bg-primary/5"
                             >
-                                Try AI Assistant
+                                {t('auth.signup.btn_signup')}
                             </Link>
                             <div className="border-t border-gray-100 dark:border-gray-700 my-2 pt-2">
                                 <button
@@ -193,10 +220,10 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                     }}
                                     className="flex items-center gap-2 w-full px-3 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                                 >
-                                    <Settings size={18} /> Settings
+                                    <Settings size={18} /> {t('nav.settings')}
                                 </button>
                                 <button className="flex items-center gap-2 w-full px-3 py-3 text-base font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg">
-                                    <LogOut size={18} /> Sign out
+                                    <LogOut size={18} /> {t('nav.sign_out')}
                                 </button>
                             </div>
                         </div>

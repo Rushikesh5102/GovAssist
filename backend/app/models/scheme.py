@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, JSON
+from sqlalchemy import Column, Integer, String, Boolean, Text, JSON
 from app.core.database import Base
 
 class Scheme(Base):
@@ -7,6 +7,13 @@ class Scheme(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(Text)
-    eligibility_rules = Column(JSON) # JSON rules
-    benefits = Column(Text)
-    documents_required = Column(Text)
+    ministry = Column(String, index=True)
+    category = Column(String, index=True)
+    tags = Column(String)  # Comma-separated tags
+    
+    # Storing structured data as JSON
+    eligibility_criteria = Column(JSON)
+    documents_required = Column(JSON)
+    benefits = Column(JSON)
+    
+    active = Column(Boolean, default=True)

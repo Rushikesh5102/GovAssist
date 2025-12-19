@@ -1,0 +1,106 @@
+{
+  "extracted_data": {},
+  "eligibility_results": [
+    {
+      "scheme_id": 1,
+      "scheme_name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "category": "Agriculture",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "occupation",
+        "landholding"
+      ],
+      "benefits": {
+        "financial": "Rs. 6000 per year"
+      },
+      "documents_required": [
+        "Aadhar Card",
+        "Land Papers",
+        "Bank Account"
+      ]
+    },
+    {
+      "scheme_id": 2,
+      "scheme_name": "Pradhan Mantri Awas Yojana (PMAY)",
+      "category": "Housing",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "income_group"
+      ],
+      "benefits": {
+        "subsidy": "Interest subsidy on home loan"
+      },
+      "documents_required": [
+        "Aadhar Card",
+        "Income Certificate"
+      ]
+    },
+    {
+      "scheme_id": 3,
+      "scheme_name": "Ayushman Bharat",
+      "category": "Health",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "income_group"
+      ],
+      "benefits": {
+        "coverage": "Rs. 5 Lakh per family"
+      },
+      "documents_required": [
+        "Aadhar Card",
+        "Ration Card"
+      ]
+    },
+    {
+      "scheme_id": 4,
+      "scheme_name": "Swachh Bharat Mission",
+      "category": "Sanitation",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "residence"
+      ],
+      "benefits": {
+        "financial": "Incentive for toilet construction"
+      },
+      "documents_required": [
+        "Aadhar Card"
+      ]
+    },
+    {
+      "scheme_id": 5,
+      "scheme_name": "Digital India",
+      "category": "Technology",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "citizenship"
+      ],
+      "benefits": {
+        "access": "Digital services"
+      },
+      "documents_required": [
+        "None"
+      ]
+    },
+    {
+      "scheme_id": 6,
+      "scheme_name": "Make in India",
+      "category": "Economy",
+      "status": "Ineligible",
+      "match_score": 0.0,
+      "missing_criteria": [
+        "type"
+      ],
+      "benefits": {
+        "support": "Ease of doing business"
+      },
+      "documents_required": [
+        "Business Registration"
+      ]
+    }
+  ]
+}

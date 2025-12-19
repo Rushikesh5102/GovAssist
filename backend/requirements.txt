@@ -19,4 +19,5 @@ pytest
 httpx
 python-docx
 openai-whisper
-python-multipart
+openai-whisper
+twilio

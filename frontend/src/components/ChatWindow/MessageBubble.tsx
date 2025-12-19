@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import logo from '../../assets/logo.png'; // Add import
+
+// ...
+
+// ... imports above
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { User, Bot, Edit2, Check, X } from 'lucide-react';
@@ -26,22 +31,22 @@ const MessageBubble = ({ message, onRegenerate, onFeedback, onEdit, animate = fa
             className={`flex gap-4 max-w-4xl mx-auto group ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
         >
             {/* Avatar */}
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${isUser
-                ? 'bg-gradient-to-br from-primary to-primary-dark text-white'
-                : 'bg-white dark:bg-gray-800 text-primary border border-gray-100 dark:border-gray-700'
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isUser
+                ? 'bg-gradient-to-br from-saffron to-indiaGreen text-white shadow-lg'
+                : 'bg-transparent text-saffron'
                 }`}>
-                {isUser ? <User size={20} /> : <Bot size={20} />}
+                {isUser ? <User size={20} /> : <img src={logo} alt="GovAssist" className="w-8 h-8 object-contain drop-shadow-[0_0_5px_rgba(0,123,255,0.8)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" />}
             </div>
 
             {/* Message Content */}
-            <div className={`flex flex-col max-w-[95%] md:max-w-[85%] ${isUser ? 'items-end' : 'items-start'}`}>
+            <div className={`flex flex-col max-w-[95%] md:max-w-[90%] ${isUser ? 'items-end' : 'items-start w-full'}`}>
                 <div className={`
-          px-6 py-4 rounded-2xl shadow-sm text-base leading-relaxed relative w-full
-          ${isUser
-                        ? 'bg-primary text-white rounded-tr-none shadow-primary/20'
-                        : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-tl-none shadow-gray-200/50 dark:shadow-none'
+                    px-6 py-4 text-base leading-relaxed relative w-full
+                    ${isUser
+                        ? 'bg-gradient-to-br from-saffron to-saffron-dim text-white rounded-2xl rounded-tr-none shadow-lg shadow-saffron/20'
+                        : 'bg-transparent pl-0 text-gray-900 dark:text-gray-100'
                     }
-        `}>
+                `}>
                     {isEditing ? (
                         <div className="flex flex-col gap-2">
                             <textarea

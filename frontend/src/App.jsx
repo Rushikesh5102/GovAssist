@@ -4,6 +4,7 @@ import AppLayout from './AppLayout';
 import ChatLayout from './ChatLayout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 // Lazy Load Pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -15,9 +16,12 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignupPage = lazy(() => import('./pages/SignupPage'));
 const SchemesPage = lazy(() => import('./pages/SchemesPage'));
+const SchemeDetailsPage = lazy(() => import('./pages/SchemeDetailsPage'));
 const EligibilityPage = lazy(() => import('./pages/EligibilityPage'));
 const UploadPage = lazy(() => import('./pages/UploadPage'));
 const SharePage = lazy(() => import('./pages/SharePage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -35,20 +39,25 @@ const App = () => {
             <ErrorBoundary>
                 <Router>
                     <Suspense fallback={<PageLoader />}>
-                        <Routes>
-                            <Route path="/" element={<AppLayout><HomePage /></AppLayout>} />
-                            <Route path="/chat" element={<ChatLayout><ChatPage /></ChatLayout>} />
-                            <Route path="/about" element={<AppLayout><AboutPage /></AppLayout>} />
-                            <Route path="/privacy" element={<AppLayout><PrivacyPage /></AppLayout>} />
-                            <Route path="/contact" element={<AppLayout><ContactPage /></AppLayout>} />
-                            <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
-                            <Route path="/signup" element={<AppLayout><SignupPage /></AppLayout>} />
-                            <Route path="/schemes" element={<AppLayout><SchemesPage /></AppLayout>} />
-                            <Route path="/eligibility" element={<AppLayout><EligibilityPage /></AppLayout>} />
-                            <Route path="/upload" element={<AppLayout><UploadPage /></AppLayout>} />
-                            <Route path="/share/:token" element={<SharePage />} />
-                            <Route path="/admin" element={<AppLayout><AdminPage /></AppLayout>} />
-                        </Routes>
+                        <AuthProvider>
+                            <Routes>
+                                <Route path="/" element={<AppLayout><HomePage /></AppLayout>} />
+                                <Route path="/chat" element={<ChatLayout><ChatPage /></ChatLayout>} />
+                                <Route path="/about" element={<AppLayout><AboutPage /></AppLayout>} />
+                                <Route path="/privacy" element={<AppLayout><PrivacyPage /></AppLayout>} />
+                                <Route path="/contact" element={<AppLayout><ContactPage /></AppLayout>} />
+                                <Route path="/login" element={<AppLayout><LoginPage /></AppLayout>} />
+                                <Route path="/signup" element={<AppLayout><SignupPage /></AppLayout>} />
+                                <Route path="/schemes" element={<AppLayout><SchemesPage /></AppLayout>} />
+                                <Route path="/schemes/:id" element={<AppLayout><SchemeDetailsPage /></AppLayout>} />
+                                <Route path="/eligibility" element={<AppLayout><EligibilityPage /></AppLayout>} />
+                                <Route path="/upload" element={<AppLayout><UploadPage /></AppLayout>} />
+                                <Route path="/share/:token" element={<SharePage />} />
+                                <Route path="/profile" element={<AppLayout><ProfilePage /></AppLayout>} />
+                                <Route path="/onboarding" element={<AppLayout><OnboardingPage /></AppLayout>} />
+                                <Route path="/admin" element={<AppLayout><AdminPage /></AppLayout>} />
+                            </Routes>
+                        </AuthProvider>
                     </Suspense>
                 </Router>
             </ErrorBoundary>

@@ -6,7 +6,7 @@ const HINDI_LAYOUT = [
     ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ए', 'ऐ', 'ओ', 'औ', 'ऋ', 'अं', 'अः'],
     ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ'],
     ['ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न'],
-    ['प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श'],
+    ['प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ळ'],
     ['ष', 'स', 'ह', 'क्ष', 'त्र', 'ज्ञ', 'श्र'],
     ['ा', 'ि', 'ी', 'ु', 'ू', 'ृ', 'े', 'ै', 'ो', 'ौ', 'ं', 'ः', '्', '़']
 ];
@@ -21,7 +21,7 @@ const VirtualKeyboard = ({ onKeyPress, onClose, language = 'hi' }) => {
         >
             <div className="flex justify-between items-center mb-2 px-2">
                 <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    {language === 'hi' ? 'Hindi' : 'Marathi'} Keyboard
+                    {language === 'mr' ? 'Marathi' : 'Hindi'} Keyboard
                 </span>
                 <button onClick={onClose} className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
                     <X size={16} />

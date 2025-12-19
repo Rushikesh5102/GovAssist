@@ -23,5 +23,6 @@ class ChatMessage(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
     sources = Column(Text) # JSON string of sources
     flag = Column(String, nullable=True) # garbage, sensitive, etc.
+    feedback = Column(String, nullable=True) # up, down
 
     session = relationship("ChatSession", back_populates="messages")

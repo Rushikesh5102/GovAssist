@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Topbar from './components/Nav/Topbar';
 import Footer from './components/Nav/Footer';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { useAuth } from './context/AuthContext';
 import OnboardWizard from './components/Onboarding/OnboardWizard';
 import SettingsModal from './components/Settings/SettingsModal';
 
@@ -12,13 +13,24 @@ const AppLayout = ({ children }) => {
     const [showOnboarding, setShowOnboarding] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
 
+    const { user, loading } = useAuth();
+    const navigate = useNavigate();
+
     useEffect(() => {
+        // Old Tour Logic
         const hasOnboarded = localStorage.getItem('hasOnboarded');
         if (!hasOnboarded && !isAuthPage) {
             const timer = setTimeout(() => setShowOnboarding(true), 1000);
             return () => clearTimeout(timer);
         }
     }, [isAuthPage]);
+
+    // Mandatory Profile Onboarding Protection
+    useEffect(() => {
+        if (!loading && user && !(user as any).onboarding_completed && location.pathname !== '/onboarding') {
+            navigate('/onboarding');
+        }
+    }, [user, loading, location.pathname, navigate]);
 
     const handleOnboardingComplete = () => {
         setShowOnboarding(false);

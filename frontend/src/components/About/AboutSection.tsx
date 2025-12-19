@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const AboutSection: React.FC = () => {
+    const { t } = useTranslation();
     return (
         <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             <div className="max-w-4xl mx-auto text-center">
@@ -11,21 +13,18 @@ const AboutSection: React.FC = () => {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-white/90">
-                        About GovAssist
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-gray-900 dark:text-white/90">
+                        {t('about.title')}
                     </h2>
 
                     <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-10 rounded-full" />
 
-                    <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light mb-8">
-                        GovAssist is an intelligent platform designed to bridge the gap between citizens and government services.
-                        We leverage advanced AI to simplify the discovery and understanding of government schemes,
-                        ensuring that every citizen can access the benefits they are entitled to with ease and clarity.
+                    <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-8">
+                        {t('about.desc_1')}
                     </p>
 
-                    <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light">
-                        Our mission is to democratize access to public welfare through technology,
-                        making complex bureaucratic processes transparent, accessible, and user-friendly for everyone.
+                    <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+                        {t('about.desc_2')}
                     </p>
                 </motion.div>
             </div>

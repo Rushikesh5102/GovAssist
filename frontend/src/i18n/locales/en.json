@@ -1,0 +1,266 @@
+{
+    "common": {
+        "language": "English",
+        "govAssist": "GovAssist",
+        "loading": "Loading..."
+    },
+    "nav": {
+        "home": "Home",
+        "schemes": "Schemes",
+        "eligibility": "Eligibility",
+        "documents": "Documents",
+        "about": "About",
+        "contact": "Contact",
+        "try_ai": "Try AI Assistant",
+        "profile": "Profile",
+        "settings": "Settings",
+        "sign_out": "Sign out",
+        "platform": "Platform",
+        "support": "Support"
+    },
+    "home": {
+        "hero": {
+            "title_1": "Simplifying Governance",
+            "title_2": "for Every Citizen",
+            "subtitle": "GovAssist AI helps you navigate government schemes, check eligibility, and understand documents with ease. Your personal guide to Indian governance.",
+            "cta_try": "Try GovAssist AI",
+            "cta_signup": "Sign Up"
+        },
+        "features": {
+            "title": "Everything you need",
+            "chat_title": "AI Chat Assistant",
+            "chat_desc": "Ask questions in English, Hindi, or Marathi. Get instant answers about schemes and procedures.",
+            "schemes_title": "Scheme Discovery",
+            "schemes_desc": "Find schemes you are eligible for. Filter by category, age, and occupation.",
+            "docs_title": "Document Analysis",
+            "docs_desc": "Upload documents to get summaries and explanations in simple language."
+        },
+        "subscribe": {
+            "title": "Stay Updated",
+            "desc": "Get the latest updates on government schemes and new features directly in your inbox.",
+            "placeholder": "Enter your email",
+            "btn": "Subscribe"
+        }
+    },
+    "about": {
+        "title": "About GovAssist",
+        "desc_1": "GovAssist is an intelligent platform designed to bridge the gap between citizens and government services. We leverage advanced AI to simplify the discovery and understanding of government schemes, ensuring that every citizen can access the benefits they are entitled to with ease and clarity.",
+        "desc_2": "Our mission is to democratize access to public welfare through technology, making complex bureaucratic processes transparent, accessible, and user-friendly for everyone."
+    },
+    "team": {
+        "title": "Team",
+        "roles": {
+            "lead": "Team Lead",
+            "member": "Member",
+            "guide": "Guide"
+        },
+        "members": {
+            "1": {
+                "desc": "Driving the project vision and architecture."
+            },
+            "2": {
+                "desc": "Developing robust features and seamless integrations."
+            },
+            "3": {
+                "desc": "Focusing on user experience and interface design."
+            },
+            "4": {
+                "desc": "Providing expert guidance and academic mentorship."
+            }
+        }
+    },
+    "tech_stack": {
+        "title": "Core Technology Stack",
+        "subtitle": "Built with industry-leading tools and frameworks for maximum performance and scalability.",
+        "items": {
+            "React": "Frontend library for building dynamic user interfaces.",
+            "FastAPI": "High-performance backend framework for Python.",
+            "PostgreSQL": "Robust open-source relational database system.",
+            "TypeScript": "Typed superset of JavaScript for scalable development.",
+            "LangChain": "Framework for developing applications powered by LLMs.",
+            "Tailwind CSS": "Utility-first CSS framework for rapid UI design.",
+            "SQLAlchemy": "Python SQL toolkit and Object Relational Mapper.",
+            "AI_LLM": "Powered by advanced Large Language Models.",
+            "Python": "Core programming language for backend logic.",
+            "Vite": "Next Generation Frontend Tooling."
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome Back",
+            "subtitle": "Sign in to access GovAssist",
+            "btn_signin": "Sign In",
+            "btn_signing_in": "Signing in...",
+            "no_account": "Don't have an account?",
+            "signup_link": "Sign up"
+        },
+        "signup": {
+            "title": "Create Account",
+            "subtitle": "Join GovAssist today",
+            "btn_signup": "Sign Up",
+            "btn_signing_up": "Creating Account...",
+            "has_account": "Already have an account?",
+            "signin_link": "Sign in"
+        },
+        "labels": {
+            "email": "Email Address",
+            "password": "Password",
+            "full_name": "Full Name",
+            "phone": "Phone Number",
+            "role": "Role",
+            "interests": "Interests (comma separated)",
+            "email_placeholder": "you@example.com",
+            "name_placeholder": "John Doe",
+            "phone_placeholder": "+91 98765 43210",
+            "interests_placeholder": "Hackathons, Funding, Subsidies..."
+        },
+        "roles": {
+            "citizen": "Citizen",
+            "student": "Student",
+            "farmer": "Farmer",
+            "business": "Business / Startup"
+        }
+    },
+    "schemes_page": {
+        "title": "Government Schemes",
+        "subtitle": "Explore available schemes and benefits",
+        "search_placeholder": "Search schemes...",
+        "filter_btn": "Filter",
+        "active": "Active",
+        "ministry_placeholder": "Ministry of Agriculture",
+        "view_details": "View Details"
+    },
+    "eligibility_page": {
+        "title": "Check Eligibility",
+        "subtitle": "Find out which government schemes apply to you",
+        "sections": {
+            "profile": "Your Profile",
+            "results": "Results Found"
+        },
+        "labels": {
+            "age": "Age",
+            "income": "Annual Income (₹)",
+            "occupation": "Occupation",
+            "caste": "Caste Category",
+            "gender": "Gender"
+        },
+        "options": {
+            "occupation": {
+                "student": "Student",
+                "farmer": "Farmer",
+                "business": "Business",
+                "unemployed": "Unemployed"
+            },
+            "caste": {
+                "general": "General",
+                "obc": "OBC",
+                "sc": "SC",
+                "st": "ST"
+            },
+            "gender": {
+                "male": "Male",
+                "female": "Female",
+                "other": "Other"
+            }
+        },
+        "check_btn": "Check Eligibility",
+        "checking_btn": "Checking...",
+        "no_results": {
+            "title": "No Results Yet",
+            "desc": "Fill out the form to see which government schemes you are eligible for."
+        },
+        "result_item": {
+            "eligible": "Eligible",
+            "meet_criteria": "You meet all the criteria for this scheme.",
+            "missing_criteria": "Missing criteria: "
+        }
+    },
+    "chat": {
+        "title": "GovAssist AI 1.0",
+        "initial_message": "Namaste! I am your AI Governance Assistant. How can I help you today with government schemes or documents?",
+        "new_chat_title": "What can I help with today?",
+        "input_placeholder": "Ask anything...",
+        "suggestions": {
+            "pm_kisan": "Information about PM Kisan Scheme",
+            "eligibility": "Help me check eligibility"
+        },
+        "disclaimer": "GovAssist AI can make mistakes. Please verify important information.",
+        "share_modal": {
+            "title": "Share Chat",
+            "desc": "Anyone with this link can view this conversation."
+        },
+        "error_conn": "Sorry, I'm having trouble connecting. Please try again.",
+        "upload_success": "Successfully uploaded",
+        "upload_fail": "Failed to upload",
+        "loading_analyzing": "Analyzing documents..."
+    },
+    "footer": {
+        "desc": "Simplifying governance for every citizen. Precise, AI-powered guidance for schemes and documents.",
+        "links": {
+            "find_schemes": "Find Schemes",
+            "check_eligibility": "Check Eligibility",
+            "analyze_docs": "Analyze Documents",
+            "contact_us": "Contact Us",
+            "about_us": "About Us",
+            "privacy": "Privacy Policy",
+            "ai_assistant": "AI Assistant"
+        },
+        "contact": {
+            "title": "Contact",
+            "address": "Ajeenkya DY Patil University, Charholi Budruk, via Lohegaon, Pune, Maharashtra 412105"
+        },
+        "copyright": "GovAssist AI. All rights reserved.",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "cookies": "Cookies"
+    },
+    "sidebar": {
+        "new_chat": "New chat",
+        "menu": "Menu",
+        "nav": {
+            "chats": "Chats",
+            "schemes": "Schemes",
+            "dashboard": "Dashboard",
+            "search": "Search"
+        },
+        "recents": "Recents",
+        "plan_free": "Free Plan"
+    },
+    "upload": {
+        "title": "Upload Documents",
+        "subtitle": "Upload government documents (PDF, Images) to add them to the knowledge base.",
+        "dropzone": {
+            "active": "Drop files here...",
+            "inactive": "Drag & drop files here, or click to select",
+            "support": "Supports PDF, JPG, PNG (Max 10MB)"
+        },
+        "selected_files": "Selected Files",
+        "status": {
+            "uploaded": "Uploaded",
+            "failed": "Failed"
+        },
+        "btn_uploading": "Uploading...",
+        "btn_upload_all": "Upload All Files"
+    },
+    "contact_page": {
+        "title": "Contact Us",
+        "desc": "Have questions or suggestions? We'd love to hear from you. Reach out to our team using the form or the details below.",
+        "email_title": "Email",
+        "office_title": "Office",
+        "address": {
+            "line1": "Ajeenkya DY Patil University",
+            "line2": "Charholi Budruk, via Lohegaon,",
+            "line3": "Pune, Maharashtra 412105"
+        },
+        "form": {
+            "name_label": "Name",
+            "name_placeholder": "Your Name",
+            "email_label": "Email",
+            "email_placeholder": "john@example.com",
+            "message_label": "Message",
+            "message_placeholder": "How can we help you?",
+            "btn_send": "Send Message",
+            "get_directions": "Get Directions"
+        }
+    }
+}

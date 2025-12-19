@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { Send, Paperclip, Mic, X, StopCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import VirtualKeyboard from '../Input/VirtualKeyboard';
 import { Keyboard } from 'lucide-react';
 
 const MessageInput = ({ onSend, onUpload, isLoading, centered }) => {
+    const { t, i18n } = useTranslation();
     const [input, setInput] = useState('');
     const [showKeyboard, setShowKeyboard] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
@@ -121,8 +123,8 @@ const MessageInput = ({ onSend, onUpload, isLoading, centered }) => {
                     layout
                     className={`
                     relative flex items-end gap-2 
-                    bg-[#2f2f2f] rounded-[26px] p-2 
-                    border border-transparent focus-within:border-gray-600 
+                    bg-white dark:bg-[#2f2f2f] rounded-[26px] p-2 
+                    border border-gray-300 dark:border-transparent focus-within:border-gray-400 dark:focus-within:border-gray-600 
                     transition-all shadow-lg
                     ${isRecording ? 'ring-2 ring-red-500/50' : ''}
                 `}
@@ -137,7 +139,7 @@ const MessageInput = ({ onSend, onUpload, isLoading, centered }) => {
                     />
                     <button
                         onClick={() => fileInputRef.current?.click()}
-                        className="p-2.5 text-gray-400 hover:text-white rounded-full hover:bg-gray-800 transition-colors self-end mb-0.5"
+                        className="p-2.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors self-end mb-0.5"
                         title="Upload file"
                         disabled={isRecording}
                     >
@@ -150,32 +152,43 @@ const MessageInput = ({ onSend, onUpload, isLoading, centered }) => {
                         value={input}
                         onChange={handleInput}
                         onKeyDown={handleKeyDown}
-                        placeholder="Ask anything..."
+                        placeholder={t('chat.input_placeholder')}
                         rows={1}
                         disabled={isRecording}
-                        className="flex-1 bg-transparent border-none focus:ring-0 resize-none py-3 text-gray-100 placeholder-gray-400 max-h-[200px] scrollbar-hide text-base"
+                        className="flex-1 bg-transparent border-none focus:ring-0 resize-none py-3 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 max-h-[200px] scrollbar-hide text-base"
                         style={{ minHeight: '48px' }}
                     />
 
                     {/* Right Actions Group */}
                     <div className="flex items-center gap-1 self-end mb-0.5">
+                        {/* Keyboard Toggle */}
+                        {(i18n.language === 'hi' || i18n.language === 'mr') && (
+                            <button
+                                onClick={() => setShowKeyboard(!showKeyboard)}
+                                className={`p-2.5 rounded-full transition-colors ${showKeyboard ? 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                                title="Toggle Keyboard"
+                            >
+                                <Keyboard size={20} />
+                            </button>
+                        )}
+
                         {/* Voice Input */}
                         <button
                             onClick={isRecording ? stopRecording : startRecording}
-                            className={`p-2.5 rounded-full transition-colors ${isRecording ? 'text-red-500 bg-red-900/30' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
+                            className={`p-2.5 rounded-full transition-colors ${isRecording ? 'text-red-600 dark:text-red-500 bg-red-100 dark:bg-red-900/30' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                             title={isRecording ? "Stop recording" : "Voice input"}
                         >
                             {isRecording ? <StopCircle size={20} /> : <Mic size={20} />}
                         </button>
 
-                        {/* Send Button - Only show if input active? ChatGPT shows it always but greyed. Or shows it when typing. */}
+                        {/* Send Button */}
                         <button
                             onClick={handleSend}
                             disabled={!input.trim() || isLoading || isRecording}
                             className={`
                             p-2.5 rounded-full transition-all duration-200
                             ${input.trim() && !isLoading && !isRecording
-                                    ? 'bg-white text-black hover:bg-gray-200'
+                                    ? 'bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-200'
                                     : 'bg-transparent text-gray-500 cursor-not-allowed'
                                 }
                         `}
@@ -191,6 +204,7 @@ const MessageInput = ({ onSend, onUpload, isLoading, centered }) => {
                     <VirtualKeyboard
                         onKeyPress={handleVirtualKeyPress}
                         onClose={() => setShowKeyboard(false)}
+                        language={i18n.language}
                     />
                 )}
             </AnimatePresence>

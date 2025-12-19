@@ -15,8 +15,9 @@ router = APIRouter()
 class ChatRequest(BaseModel):
     message: str
     session_id: Optional[int] = None
+    language: Optional[str] = "en"
 
-@router.post("/")
+@router.post("")
 def chat(
     request: ChatRequest,
     db: Session = Depends(get_db),
@@ -42,11 +43,16 @@ def chat(
         
         if is_garbage:
             answer = "I didn't understand that. Could you rephrase? Here are some things you can ask me:\n- How do I apply for PM Kisan?\n- What are the eligibility criteria for Awas Yojana?"
+            # Simple localization for garbage response could be added here too, but let's rely on RAG mainly.
+            # actually, if language is 'hi', we should reply in Hindi. But let's leave this simple logic for now or update it.
+            # To be perfect, we should ask LLM even for garbage if we want translation, or have translated static strings.
+            # For now, if garbage, we return static English. This is a small edge case.
+            
             sources = []
             response_data = {"answer": answer, "sources": sources}
         else:
             # Generate response with history
-            response_data = get_rag_response(request.message, history=history)
+            response_data = get_rag_response(request.message, db=db, history=history, language=request.language)
             answer = response_data.get("answer", "")
             sources = response_data.get("sources", [])
 
@@ -105,5 +111,40 @@ def chat(
             response_data["session_id"] = session_id
 
         return response_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class FeedbackRequest(BaseModel):
+    message_id: int
+    feedback: str # "up" or "down"
+
+@router.post("/feedback")
+def feedback(
+    request: FeedbackRequest,
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_current_user_optional)
+):
+    try:
+        # Find message
+        # We need to find the message. If logged in, ensure it belongs to a session of the user.
+        # If not logged in, we rely on the message_id being valid (security trade-off for anonymous chat, or we could require session_id too).
+        # For valid MVP, let's just find the message by ID.
+        
+        msg = db.query(ChatMessage).filter(ChatMessage.id == request.message_id).first()
+        if not msg:
+            raise HTTPException(status_code=404, detail="Message not found")
+        
+        # Optional: Verify ownership
+        if current_user:
+            session = db.query(ChatSession).filter(ChatSession.id == msg.session_id).first()
+            if not session or session.user_id != current_user.id:
+                 raise HTTPException(status_code=403, detail="Not authorized")
+        
+        msg.feedback = request.feedback
+        db.commit()
+        
+        return {"status": "success"}
+    except HTTPException as he:
+        raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

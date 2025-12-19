@@ -1,20 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
+import logo from '../../assets/logo.png';
 import { useSearchParams } from 'react-router-dom';
 import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';
 import { Bot, Globe, Clock, Share2, X, Copy } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const ChatWindow = () => {
+    const { t, i18n } = useTranslation();
     const [messages, setMessages] = useState([
         {
             id: 1,
             role: 'assistant',
-            content: 'Namaste! I am your AI Governance Assistant. How can I help you today with government schemes or documents?',
+            content: t('chat.initial_message'),
             timestamp: new Date().toISOString(),
         }
     ]);
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("");
     const [language, setLanguage] = useState('en');
     const [isTemporary, setIsTemporary] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
@@ -71,6 +75,12 @@ const ChatWindow = () => {
 
         setMessages(prev => [...prev, userMessage]);
         setIsLoading(true);
+        setLoadingText("");
+
+        // Show "Searching..." after 3 seconds
+        const loadingTimer = setTimeout(() => {
+            setLoadingText(t('chat.loading_analyzing') || "Analyzing documents...");
+        }, 3000);
 
         try {
             const token = localStorage.getItem('token');
@@ -82,7 +92,8 @@ const ChatWindow = () => {
                 headers,
                 body: JSON.stringify({
                     message: text,
-                    session_id: isTemporary ? null : (sessionId ? parseInt(sessionId) : null)
+                    session_id: isTemporary ? null : (sessionId ? parseInt(sessionId) : null),
+                    language: i18n.language
                 })
             });
 
@@ -101,16 +112,18 @@ const ChatWindow = () => {
             if (!isTemporary && !sessionId && data.session_id) {
                 setSearchParams({ session_id: data.session_id });
             }
+            clearTimeout(loadingTimer);
         } catch (error) {
             console.error(error);
             setMessages(prev => [...prev, {
                 id: Date.now() + 1,
                 role: 'assistant',
-                content: "Sorry, I'm having trouble connecting. Please try again.",
+                content: `Error: ${error.message}. Please check console for details.`,
                 timestamp: new Date().toISOString(),
             }]);
         } finally {
             setIsLoading(false);
+            setLoadingText(""); // Clear loading text
         }
     };
 
@@ -131,7 +144,7 @@ const ChatWindow = () => {
             setMessages(prev => [...prev, uploadMessage]);
 
             try {
-                const response = await fetch('/api/upload/', {
+                const response = await fetch('/api/upload', {
                     method: 'POST',
                     body: formData
                 });
@@ -141,7 +154,7 @@ const ChatWindow = () => {
                     const successMessage = {
                         id: Date.now() + Math.random(),
                         role: 'assistant',
-                        content: `Successfully uploaded **${file.name}**. \n\n**Extracted Text Summary:**\n${data.extracted_text.substring(0, 200)}...`,
+                        content: `${t('chat.upload_success')} **${file.name}**. \n\n**Extracted Text Summary:**\n${data.extracted_text.substring(0, 200)}...`,
                         timestamp: new Date().toISOString(),
                     };
                     setMessages(prev => [...prev, successMessage]);
@@ -153,7 +166,7 @@ const ChatWindow = () => {
                 const errorMessage = {
                     id: Date.now() + Math.random(),
                     role: 'assistant',
-                    content: `Failed to upload **${file.name}**. Please try again.`,
+                    content: `${t('chat.upload_fail')} **${file.name}**.`,
                     timestamp: new Date().toISOString(),
                 };
                 setMessages(prev => [...prev, errorMessage]);
@@ -192,7 +205,7 @@ const ChatWindow = () => {
             const headers = { 'Content-Type': 'application/json' };
             if (token) headers['Authorization'] = `Bearer ${token}`;
 
-            fetch('/api/chat', {
+            fetch('/api/chat/', {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({
@@ -213,9 +226,25 @@ const ChatWindow = () => {
         }
     };
 
-    const handleFeedback = (type) => {
-
-        // TODO: Send feedback to backend
+    const handleFeedback = async (messageId, type) => {
+        try {
+            const token = localStorage.getItem('token');
+            await fetch('/api/chat/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                },
+                body: JSON.stringify({
+                    message_id: messageId,
+                    feedback: type // 'up' or 'down'
+                })
+            });
+            // Optional: Show toast or update UI to show feedback recorded
+            console.log("Feedback sent:", type);
+        } catch (error) {
+            console.error("Failed to send feedback", error);
+        }
     };
 
     const handleEdit = (id, newContent) => {
@@ -280,11 +309,11 @@ const ChatWindow = () => {
     const isNewChat = messages.length <= 1;
 
     return (
-        <div className="flex flex-col h-full relative w-full max-w-full bg-[#212121] text-gray-100">
+        <div className="flex flex-col h-full relative w-full max-w-full bg-transparent text-gray-900 dark:text-gray-100">
             {/* Header / Model Selector */}
             <div className="absolute top-0 left-0 p-4 z-20">
-                <button className="flex items-center gap-2 text-lg font-semibold text-gray-200 hover:bg-gray-800 px-3 py-2 rounded-xl transition-colors">
-                    <span>GovAssist AI 1.0</span>
+                <button className="flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-xl transition-colors">
+                    <span>{t('chat.title')}</span>
                     <span className="text-gray-500 text-xs">▼</span>
                 </button>
             </div>
@@ -294,10 +323,15 @@ const ChatWindow = () => {
 
                 {isNewChat ? (
                     <div className="flex flex-col items-center justify-center max-w-2xl w-full px-4 text-center">
-                        <div className="mb-8 p-4 bg-white/5 rounded-full ring-1 ring-white/10 shadow-2xl">
-                            <Bot size={48} className="text-white" />
+                        <div className="mb-8 p-6 bg-white dark:bg-white/5 rounded-3xl ring-1 ring-gray-200 dark:ring-white/10 shadow-xl dark:shadow-2xl backdrop-blur-sm">
+                            <img
+                                src={logo}
+                                alt="GovAssist"
+                                className="w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(0,123,255,0.6)] dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+                            />
                         </div>
-                        <h1 className="text-2xl md:text-4xl font-semibold text-white mb-8">What can I help with today?</h1>
+                        <h1 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-8">{t('chat.new_chat_title')}</h1>
+
 
                         {/* Input is rendered here in the center for new chat */}
                         <div className="w-full">
@@ -311,11 +345,11 @@ const ChatWindow = () => {
 
                         {/* Quick Actions / Suggestions */}
                         <div className="grid grid-cols-2 gap-2 w-full mt-8">
-                            <button onClick={() => handleSend("Tell me about PM Kisan")} className="p-3 text-sm text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:bg-gray-800 text-left transition-colors">
-                                Information about <strong>PM Kisan Scheme</strong>
+                            <button onClick={() => handleSend(t('chat.suggestions.pm_kisan'))} className="p-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-800 text-left transition-colors">
+                                {t('chat.suggestions.pm_kisan')}
                             </button>
-                            <button onClick={() => handleSend("Check my eligibility")} className="p-3 text-sm text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:bg-gray-800 text-left transition-colors">
-                                Help me <strong>check eligibility</strong>
+                            <button onClick={() => handleSend(t('chat.suggestions.eligibility'))} className="p-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-800 text-left transition-colors">
+                                {t('chat.suggestions.eligibility')}
                             </button>
                         </div>
                     </div>
@@ -333,11 +367,16 @@ const ChatWindow = () => {
 
                         {isLoading && (
                             <div className="flex gap-4 animate-pulse">
-                                <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white shrink-0">
-                                    <Bot size={16} />
+                                <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                                    <img
+                                        src={logo}
+                                        alt="GovAssist"
+                                        className="w-full h-full object-contain drop-shadow-[0_0_5px_rgba(0,123,255,0.8)] dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]"
+                                    />
                                 </div>
                                 <div className="space-y-2">
-                                    <div className="h-4 w-32 bg-gray-700 rounded rounded-tl-none"></div>
+                                    <div className="h-4 w-32 bg-gray-300 dark:bg-gray-700 rounded rounded-tl-none"></div>
+                                    {loadingText && <div className="text-xs text-green-400 animate-pulse">{loadingText}</div>}
                                 </div>
                             </div>
                         )}
@@ -356,7 +395,7 @@ const ChatWindow = () => {
                         centered={false}
                     />
                     <div className="text-center mt-2 text-xs text-gray-500">
-                        GovAssist AI can make mistakes. Please verify important information.
+                        {t('chat.disclaimer')}
                     </div>
                 </div>
             )}
@@ -370,21 +409,21 @@ const ChatWindow = () => {
                     >
                         <motion.div
                             initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
-                            className="bg-gray-900 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-800"
+                            className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-200 dark:border-gray-800"
                         >
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-bold text-white">Share Chat</h3>
-                                <button onClick={() => setShowShareModal(false)} className="p-1 hover:bg-gray-800 rounded-full text-gray-400">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('chat.share_modal.title')}</h3>
+                                <button onClick={() => setShowShareModal(false)} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400">
                                     <X size={20} />
                                 </button>
                             </div>
-                            <p className="text-sm text-gray-400 mb-4">Anyone with this link can view this conversation.</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{t('chat.share_modal.desc')}</p>
                             <div className="flex gap-2">
                                 <input
                                     type="text"
                                     value={shareUrl}
                                     readOnly
-                                    className="flex-1 p-2 rounded-lg bg-black border border-gray-700 text-sm text-gray-300 focus:outline-none focus:border-green-500"
+                                    className="flex-1 p-2 rounded-lg bg-gray-50 dark:bg-black border border-gray-300 dark:border-gray-700 text-sm text-gray-900 dark:text-gray-300 focus:outline-none focus:border-green-500"
                                 />
                                 <button
                                     onClick={() => { navigator.clipboard.writeText(shareUrl); }}
