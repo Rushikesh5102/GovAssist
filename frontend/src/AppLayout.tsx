@@ -19,15 +19,18 @@ const AppLayout = ({ children }) => {
     useEffect(() => {
         // Old Tour Logic
         const hasOnboarded = localStorage.getItem('hasOnboarded');
-        if (!hasOnboarded && !isAuthPage) {
+        const isAdminOrOwner = user && (user.role === 'admin' || user.role === 'owner' || user.is_admin);
+        
+        if (!hasOnboarded && !isAuthPage && !isAdminOrOwner) {
             const timer = setTimeout(() => setShowOnboarding(true), 1000);
             return () => clearTimeout(timer);
         }
-    }, [isAuthPage]);
+    }, [isAuthPage, user]);
 
     // Mandatory Profile Onboarding Protection
     useEffect(() => {
-        if (!loading && user && !(user as any).onboarding_completed && location.pathname !== '/onboarding') {
+        const isAdminOrOwner = user && (user.role === 'admin' || user.role === 'owner' || user.is_admin);
+        if (!loading && user && !(user as any).onboarding_completed && !isAdminOrOwner && location.pathname !== '/onboarding') {
             navigate('/onboarding');
         }
     }, [user, loading, location.pathname, navigate]);

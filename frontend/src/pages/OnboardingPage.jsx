@@ -76,7 +76,21 @@ const OnboardingPage = () => {
         }
     };
 
-    const nextStep = () => setStep(step + 1);
+    const nextStep = () => {
+        if (step === 1) {
+            if (!location.state || !location.district.trim()) {
+                alert("Please select your State and enter your District to continue.");
+                return;
+            }
+        }
+        if (step === 2) {
+            if (interests.length === 0) {
+                alert("Please select at least one interest to continue.");
+                return;
+            }
+        }
+        setStep(step + 1);
+    };
     const prevStep = () => setStep(step - 1);
 
     return (
@@ -124,8 +138,9 @@ const OnboardingPage = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">State</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">State <span className="text-red-500">*</span></label>
                                     <select
+                                        required
                                         value={location.state}
                                         onChange={(e) => setLocation({ ...location, state: e.target.value })}
                                         className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
@@ -135,9 +150,10 @@ const OnboardingPage = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">District</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">District <span className="text-red-500">*</span></label>
                                     <input
                                         type="text"
+                                        required
                                         value={location.district}
                                         onChange={(e) => setLocation({ ...location, district: e.target.value })}
                                         className="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
@@ -164,7 +180,7 @@ const OnboardingPage = () => {
                             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
                                 <Heart className="w-5 h-5 text-saffron" /> Your Interests
                             </h2>
-                            <p className="text-sm text-gray-500">Select topics you are interested in to see relevant schemes.</p>
+                            <p className="text-sm text-gray-500">Select topics you are interested in to see relevant schemes. <span className="text-red-500 font-medium">(Required)</span></p>
 
                             <div className="flex flex-wrap gap-3">
                                 {interestOptions.map((interest) => (

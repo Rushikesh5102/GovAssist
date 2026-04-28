@@ -53,22 +53,32 @@ def register(user: UserSignup, db: Session = Depends(get_db)):
     if db.query(User).filter(User.phone_number == user.phone_number).first():
         raise HTTPException(status_code=400, detail="Phone number already registered")
 
-    # Create Inactive User
+    # Create Inactive User or Active if Admin/Owner
+    is_admin_or_owner = user.role in ["admin", "owner"]
     hashed_password = get_password_hash(user.password)
     new_user = User(
         email=email,
         hashed_password=hashed_password,
-        full_name=user.full_name,
-        phone_number=user.phone_number,
+        full_name=user.full_name if not is_admin_or_owner else user.role.capitalize(),
+        phone_number=user.phone_number if not is_admin_or_owner else "0000000000",
         role=user.role,
         language=user.language,
-        is_active=False,
-        is_verified=False,
-        onboarding_completed=False
+        is_active=is_admin_or_owner,
+        is_verified=is_admin_or_owner,
+        onboarding_completed=is_admin_or_owner,
+        is_admin=user.role in ["admin", "owner"]
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    if is_admin_or_owner:
+        access_token = create_access_token(data={"sub": new_user.email})
+        return {
+            "message": "Admin/Owner registered.",
+            "access_token": access_token,
+            "user_status": "active"
+        }
 
     # Send OTP
     otp = OTPService.generate_otp(user.phone_number)

@@ -89,12 +89,6 @@ const OnboardWizard = ({ onClose }) => {
                             )}
                         </button>
 
-                        <button
-                            onClick={onClose}
-                            className="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                        >
-                            Skip
-                        </button>
                     </div>
                 </div>
             </motion.div>

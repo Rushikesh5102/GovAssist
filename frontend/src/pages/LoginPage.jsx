@@ -16,6 +16,7 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showAdminWelcome, setShowAdminWelcome] = useState(false);
+    const [roleForWelcome, setRoleForWelcome] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -58,9 +59,11 @@ const LoginPage = () => {
             if (userResponse.ok) {
                 const userData = await userResponse.json();
 
-                // Admin Flow
-                if (userData.is_admin || userData.role === 'admin') {
+                // Admin/Owner Flow
+                if (userData.is_admin || userData.role === 'admin' || userData.role === 'owner') {
                     setIsLoading(false);
+                    const userRole = userData.role === 'owner' ? 'owner' : 'admin';
+                    setRoleForWelcome(userRole);
                     setShowAdminWelcome(true);
                     login(token, userData);
                     return;
@@ -86,14 +89,14 @@ const LoginPage = () => {
     };
 
     const handleAnimationComplete = () => {
-        navigate('/');
+        navigate(`/${roleForWelcome}`);
     };
 
     return (
         <>
             <AnimatePresence>
                 {showAdminWelcome && (
-                    <AdminWelcome onComplete={handleAnimationComplete} />
+                    <AdminWelcome onComplete={handleAnimationComplete} role={roleForWelcome} />
                 )}
             </AnimatePresence>
 

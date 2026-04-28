@@ -22,6 +22,7 @@ const UploadPage = lazy(() => import('./pages/UploadPage'));
 const SharePage = lazy(() => import('./pages/SharePage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
+const OwnerDashboard = lazy(() => import('./pages/OwnerDashboard'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -56,6 +57,7 @@ const App = () => {
                                 <Route path="/profile" element={<AppLayout><ProfilePage /></AppLayout>} />
                                 <Route path="/onboarding" element={<AppLayout><OnboardingPage /></AppLayout>} />
                                 <Route path="/admin" element={<AppLayout><AdminPage /></AppLayout>} />
+                                <Route path="/owner" element={<AppLayout><OwnerDashboard /></AppLayout>} />
                             </Routes>
                         </AuthProvider>
                     </Suspense>

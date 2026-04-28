@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Users, Activity, Settings, Check, X, RefreshCw, Globe } from 'lucide-react';
+import { Shield, Users, Activity, Settings, Check, X, RefreshCw, Globe, Server, AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
@@ -200,7 +200,61 @@ const AdminPage = () => {
                         )}
                     </div>
                 </div>
+
+                {/* Additional Monitoring Sections */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                    {/* System Health */}
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
+                            <Server size={20} /> System Health Nodes
+                        </h2>
+                        <div className="space-y-4">
+                            <HealthBar label="Web Server (Nginx)" status="Healthy" percent={95} color="bg-green-500" />
+                            <HealthBar label="API Gateway (FastAPI)" status="Healthy" percent={90} color="bg-green-500" />
+                            <HealthBar label="Primary Database (PostgreSQL)" status="Warning" percent={75} color="bg-saffron" />
+                            <HealthBar label="Cache Layer (Redis)" status="Healthy" percent={98} color="bg-green-500" />
+                        </div>
+                    </div>
+
+                    {/* Recent Alerts */}
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
+                            <AlertTriangle size={20} /> Recent Anomalies
+                        </h2>
+                        <div className="space-y-3">
+                            <AlertItem time="10 mins ago" msg="Spike in DB connection pooling" type="warning" />
+                            <AlertItem time="1 hour ago" msg="Failed login attempts from IP 192.168.1.5" type="danger" />
+                            <AlertItem time="3 hours ago" msg="Routine backup completed successfully" type="success" />
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    );
+};
+
+const HealthBar = ({ label, status, percent, color }) => (
+    <div>
+        <div className="flex justify-between text-sm mb-1">
+            <span className="text-gray-700 dark:text-gray-300">{label}</span>
+            <span className={status === 'Healthy' ? 'text-green-500' : 'text-saffron'}>{status}</span>
+        </div>
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div className={`${color} h-2 rounded-full`} style={{ width: `${percent}%` }}></div>
+        </div>
+    </div>
+);
+
+const AlertItem = ({ time, msg, type }) => {
+    const typeStyles = {
+        warning: 'border-saffron text-saffron bg-saffron/10',
+        danger: 'border-red-500 text-red-500 bg-red-500/10',
+        success: 'border-green-500 text-green-500 bg-green-500/10',
+    };
+    return (
+        <div className={`p-3 rounded-lg border-l-4 text-sm ${typeStyles[type]}`}>
+            <span className="font-semibold block mb-0.5">{time}</span>
+            <span className="text-gray-800 dark:text-gray-200">{msg}</span>
         </div>
     );
 };

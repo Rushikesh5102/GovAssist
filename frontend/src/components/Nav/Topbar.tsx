@@ -109,8 +109,15 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                                     className="flex items-center gap-2 p-1 pr-3 rounded-full border border-white/10 hover:bg-white/10 transition-all bg-white/5"
                                 >
-                                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-white font-medium text-sm ring-1 ring-white/20">
-                                        {user.full_name?.charAt(0).toUpperCase() || 'U'}
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-white font-medium text-sm ring-1 ring-white/20">
+                                            {user.full_name?.charAt(0).toUpperCase() || 'U'}
+                                        </div>
+                                        {(user.role === 'owner' || user.role === 'admin') && (
+                                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-saffron bg-saffron/10 border border-saffron/20 rounded-full">
+                                                {user.role}
+                                            </span>
+                                        )}
                                     </div>
                                     <ChevronDown size={14} className={`text-gray-400 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -128,6 +135,11 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                                 <p className="text-xs text-gray-400 truncate">{user.email}</p>
                                             </div>
                                             <div className="py-1">
+                                                {(user.role === 'owner' || user.role === 'admin') && (
+                                                    <Link to={user.role === 'owner' ? '/owner' : '/admin'} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
+                                                        <Settings size={16} /> Dashboard
+                                                    </Link>
+                                                )}
                                                 <Link to="/profile" className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-colors">
                                                     <User size={16} /> {t('nav.profile')}
                                                 </Link>
@@ -158,7 +170,7 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                 to="/login"
                                 className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
                             >
-                                {t('auth.login.title', 'Sign In')}
+                                Sign In
                             </Link>
                         )}
                     </div>

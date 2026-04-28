@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Lock, Mail, Phone, Briefcase, Heart, FileText, Key, CheckCircle, Eye, EyeOff, MapPin, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
+import AdminWelcome from '../components/Auth/AdminWelcome';
 import { useAuth } from '../context/AuthContext';
 
 const SignupPage = () => {
     const { t } = useTranslation();
     const { login } = useAuth(); // We might use this after verification
     const navigate = useNavigate();
+
+    const [showAdminWelcome, setShowAdminWelcome] = useState(false);
+    const [roleForWelcome, setRoleForWelcome] = useState('');
 
     // Form State
     const [step, setStep] = useState(1); // 1: Signup Form, 2: OTP Verification
@@ -38,8 +43,8 @@ const SignupPage = () => {
                 body: JSON.stringify({
                     email,
                     password,
-                    full_name: fullName,
-                    phone_number: phoneNumber,
+                    full_name: fullName || 'Dummy',
+                    phone_number: phoneNumber || '0000000000',
                     role: role, // Intent handling
                     language: 'en' // Default for now
                 }),
@@ -49,6 +54,15 @@ const SignupPage = () => {
 
             if (!response.ok) {
                 throw new Error(data.detail || 'Registration failed');
+            }
+
+            if (data.access_token) {
+                // Admin or owner bypass
+                setIsLoading(false);
+                setRoleForWelcome(role);
+                setShowAdminWelcome(true);
+                login(data.access_token, null);
+                return;
             }
 
             // Success: User created, OTP sent
@@ -99,8 +113,19 @@ const SignupPage = () => {
         }
     };
 
+    const handleAnimationComplete = () => {
+        navigate(`/${roleForWelcome}`);
+    };
+
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 py-12">
+        <>
+            <AnimatePresence>
+                {showAdminWelcome && (
+                    <AdminWelcome onComplete={handleAnimationComplete} role={roleForWelcome} />
+                )}
+            </AnimatePresence>
+
+            <div className="min-h-screen flex items-center justify-center p-4 py-12">
             <div className="max-w-md w-full glass-panel p-8 backdrop-blur-xl border-t border-white/20 shadow-2xl">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-saffron mb-2">
@@ -119,7 +144,28 @@ const SignupPage = () => {
 
                 {step === 1 && (
                     <form onSubmit={handleSignup} className="space-y-4">
+                        {/* Role Selection - Intent */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.labels.role')}</label>
+                            <div className="relative">
+                                <Briefcase className="absolute inset-y-0 left-0 pl-3 h-full w-8 text-gray-500" />
+                                <select
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    className="block w-full pl-10 pr-3 py-2.5 glass-input rounded-lg text-gray-900 dark:text-white [&>option]:bg-white dark:[&>option]:bg-gray-900"
+                                >
+                                    <option value="citizen">{t('auth.roles.citizen')}</option>
+                                    <option value="student">{t('auth.roles.student')}</option>
+                                    <option value="farmer">{t('auth.roles.farmer')}</option>
+                                    <option value="business">{t('auth.roles.business')}</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="owner">Owner</option>
+                                </select>
+                            </div>
+                        </div>
+
                         {/* Full Name */}
+                        {role !== 'admin' && role !== 'owner' && (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.labels.full_name')} <span className="text-red-500">*</span></label>
                             <div className="relative">
@@ -134,6 +180,7 @@ const SignupPage = () => {
                                 />
                             </div>
                         </div>
+                        )}
 
                         {/* Email */}
                         <div>
@@ -152,6 +199,7 @@ const SignupPage = () => {
                         </div>
 
                         {/* Phone */}
+                        {role !== 'admin' && role !== 'owner' && (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.labels.phone')} <span className="text-red-500">*</span></label>
                             <div className="relative">
@@ -166,6 +214,7 @@ const SignupPage = () => {
                                 />
                             </div>
                         </div>
+                        )}
 
                         {/* Password */}
                         <div>
@@ -187,24 +236,6 @@ const SignupPage = () => {
                                 >
                                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                 </button>
-                            </div>
-                        </div>
-
-                        {/* Role Selection - Intent */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.labels.role')}</label>
-                            <div className="relative">
-                                <Briefcase className="absolute inset-y-0 left-0 pl-3 h-full w-8 text-gray-500" />
-                                <select
-                                    value={role}
-                                    onChange={(e) => setRole(e.target.value)}
-                                    className="block w-full pl-10 pr-3 py-2.5 glass-input rounded-lg text-gray-900 dark:text-white [&>option]:bg-white dark:[&>option]:bg-gray-900"
-                                >
-                                    <option value="citizen">{t('auth.roles.citizen')}</option>
-                                    <option value="student">{t('auth.roles.student')}</option>
-                                    <option value="farmer">{t('auth.roles.farmer')}</option>
-                                    <option value="business">{t('auth.roles.business')}</option>
-                                </select>
                             </div>
                         </div>
 
@@ -258,7 +289,8 @@ const SignupPage = () => {
                     </p>
                 </div>
             </div>
-        </div>
+            </div>
+        </>
     );
 };
 

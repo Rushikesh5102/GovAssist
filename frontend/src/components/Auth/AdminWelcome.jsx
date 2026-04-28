@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AdminWelcome = ({ onComplete }) => {
+const AdminWelcome = ({ onComplete, role = "Owner" }) => {
     const letters = "GovAssist".split("");
-    const subText = "Welcomes Owner".split("");
+    const subText = `Welcomes ${role.charAt(0).toUpperCase() + role.slice(1)}`.split("");
 
     useEffect(() => {
         const timer = setTimeout(() => {
