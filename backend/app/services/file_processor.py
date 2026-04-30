@@ -7,10 +7,17 @@ import docx
 import whisper
 from PIL import Image
 import pytesseract
+from app.core.config import settings
 
 # Configure upload directory
 UPLOAD_DIR = Path("data/uploads")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# Initialize Supabase Client
+supabase = None
+if settings.SUPABASE_URL and settings.SUPABASE_KEY:
+    from supabase import create_client
+    supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 
 class FileProcessor:
     @staticmethod
@@ -18,6 +25,22 @@ class FileProcessor:
         file_path = UPLOAD_DIR / file.filename
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
+            
+        # Upload to Supabase Storage if configured
+        if supabase:
+            try:
+                import time
+                unique_filename = f"{int(time.time())}_{file.filename}"
+                with open(file_path, "rb") as f:
+                    supabase.storage.from_("govassist-documents").upload(
+                        file=f,
+                        path=unique_filename,
+                        file_options={"content-type": file.content_type}
+                    )
+                print(f"Successfully backed up {file.filename} to Supabase Cloud.")
+            except Exception as e:
+                print(f"Warning: Failed to backup to Supabase: {e}")
+                
         return str(file_path)
 
     @staticmethod

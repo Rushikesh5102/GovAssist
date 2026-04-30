@@ -19,10 +19,74 @@ const OwnerDashboard = () => {
         errorRate: "0.02%",
         dbConnections: 145,
     });
+    
+    const [featureFlags, setFeatureFlags] = useState({
+        ENABLE_SCRAPER: false,
+        ENABLE_SUPABASE: true,
+        ENABLE_LLM: true
+    });
 
     useEffect(() => {
         checkOwner();
+        fetchConfig();
+        fetchMetrics();
+        
+        // Refresh metrics every 30 seconds
+        const interval = setInterval(fetchMetrics, 30000);
+        return () => clearInterval(interval);
     }, []);
+
+    const fetchMetrics = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch('/api/admin/metrics', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setMetrics(data);
+            }
+        } catch (e) {
+            console.error("Failed to load metrics", e);
+        }
+    };
+
+    const fetchConfig = async () => {
+        try {
+            const [configRes, metricsRes] = await Promise.all([
+                fetch('/api/admin/config'),
+                fetch('/api/admin/metrics')
+            ]);
+            
+            if (configRes.ok) {
+                const data = await configRes.json();
+                setFeatureFlags(data);
+            }
+            if (metricsRes.ok) {
+                const mData = await metricsRes.json();
+                setMetrics(mData);
+            }
+        } catch (e) {
+            console.error("Failed to load admin data", e);
+        }
+    };
+
+    const toggleFeature = async (featureName) => {
+        const newValue = !featureFlags[featureName];
+        setFeatureFlags(prev => ({ ...prev, [featureName]: newValue }));
+        try {
+            await fetch('/api/admin/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ [featureName]: newValue })
+            });
+            alert(`${featureName} is now ${newValue ? 'ENABLED' : 'DISABLED'}`);
+        } catch (e) {
+            console.error("Failed to update config", e);
+            alert("Failed to update configuration.");
+            setFeatureFlags(prev => ({ ...prev, [featureName]: !newValue })); // revert
+        }
+    };
 
     const checkOwner = async () => {
         const token = localStorage.getItem('token');
@@ -116,12 +180,12 @@ const OwnerDashboard = () => {
                     </div>
                 </div>
 
-                {/* Navigation Tabs */}
                 <div className="flex overflow-x-auto gap-2 bg-white dark:bg-[#0f1020] p-2 rounded-xl border border-gray-100 dark:border-white/5 shadow-sm">
                     <TabButton active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} icon={<Activity size={18} />} label="Overview" />
                     <TabButton active={activeTab === 'infrastructure'} onClick={() => setActiveTab('infrastructure')} icon={<Server size={18} />} label="Infrastructure" />
                     <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')} icon={<Shield size={18} />} label="Security & Audits" />
                     <TabButton active={activeTab === 'code'} onClick={() => setActiveTab('code')} icon={<Code size={18} />} label="Code & APM" />
+                    <TabButton active={activeTab === 'features'} onClick={() => setActiveTab('features')} icon={<Zap size={18} />} label="Feature Flags" />
                 </div>
 
                 {/* Dynamic Content Based on Tab */}
@@ -349,6 +413,40 @@ ConnectionTimeout: OCR Engine failed to respond within 1000ms`}
                         </div>
                     </div>
                 )}
+
+                {/* --- TAB: FEATURES --- */}
+                {activeTab === 'features' && (
+                    <div className="space-y-6 animate-fadeIn">
+                        <div className="bg-white dark:bg-[#0f1020] rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 p-6">
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-6">
+                                <Zap size={20} className="text-saffron" /> Live Service Integrations
+                            </h2>
+                            <div className="space-y-4">
+                                <FeatureToggle 
+                                    title="Automated Data Scraper" 
+                                    description="Run the Python APScheduler CRON job every 24 hours to pull real schemes from india.gov.in."
+                                    enabled={featureFlags.ENABLE_SCRAPER} 
+                                    onToggle={() => toggleFeature('ENABLE_SCRAPER')} 
+                                    icon={<Database />}
+                                />
+                                <FeatureToggle 
+                                    title="Supabase Cloud Storage" 
+                                    description="Automatically backup uploaded user documents to the govassist-documents bucket."
+                                    enabled={featureFlags.ENABLE_SUPABASE} 
+                                    onToggle={() => toggleFeature('ENABLE_SUPABASE')} 
+                                    icon={<Server />}
+                                />
+                                <FeatureToggle 
+                                    title="Gemini LLM Engine" 
+                                    description="Enable live AI responses for RAG chat. If disabled, system will use local static fallbacks."
+                                    enabled={featureFlags.ENABLE_LLM} 
+                                    onToggle={() => toggleFeature('ENABLE_LLM')} 
+                                    icon={<Cpu />}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -472,5 +570,25 @@ const AlertItem = ({ time, msg, type }) => {
         </div>
     );
 };
+
+const FeatureToggle = ({ title, description, enabled, onToggle, icon }) => (
+    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-transparent dark:border-white/5 hover:border-gray-200 dark:hover:border-white/10 transition-colors">
+        <div className="flex items-start gap-4">
+            <div className={`p-2 rounded-lg ${enabled ? 'bg-saffron/10 text-saffron' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
+                {icon}
+            </div>
+            <div>
+                <h3 className="font-bold text-gray-900 dark:text-white">{title}</h3>
+                <p className="text-sm text-gray-500 mt-1 max-w-xl">{description}</p>
+            </div>
+        </div>
+        <button 
+            onClick={onToggle}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${enabled ? 'bg-saffron' : 'bg-gray-300 dark:bg-gray-700'}`}
+        >
+            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${enabled ? 'translate-x-6' : 'translate-x-1'}`} />
+        </button>
+    </div>
+);
 
 export default OwnerDashboard;

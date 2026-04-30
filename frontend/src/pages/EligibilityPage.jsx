@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, AlertCircle, ChevronRight } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, ChevronRight, FileDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const EligibilityPage = () => {
@@ -49,17 +49,31 @@ const EligibilityPage = () => {
         }
     };
 
+    const handleExportPDF = () => {
+        window.print();
+    };
+
     return (
         <div className="p-6 md:p-8 h-full">
-            <div className="max-w-4xl mx-auto glass-panel p-8">
-                <div className="mb-8">
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('eligibility_page.title')}</h1>
-                    <p className="text-gray-600 dark:text-gray-300 mt-1">{t('eligibility_page.subtitle')}</p>
+            <div className="max-w-4xl mx-auto glass-panel p-8 print:shadow-none print:border-none print:bg-white print:text-black">
+                <div className="mb-8 flex justify-between items-center">
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white print:text-black">{t('eligibility_page.title')}</h1>
+                        <p className="text-gray-600 dark:text-gray-300 mt-1 print:text-gray-700">{t('eligibility_page.subtitle')}</p>
+                    </div>
+                    {results && (
+                        <button 
+                            onClick={handleExportPDF}
+                            className="hidden md:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-saffron to-indiaGreen text-white rounded-lg shadow-sm hover:opacity-90 print:hidden"
+                        >
+                            <FileDown size={18} /> Export PDF
+                        </button>
+                    )}
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 print:block">
                     {/* Form Section */}
-                    <div className="lg:col-span-1">
+                    <div className="lg:col-span-1 print:hidden">
                         <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md rounded-xl p-6 border border-gray-200 dark:border-white/10">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('eligibility_page.sections.profile')}</h3>
                             <form onSubmit={handleCheck} className="space-y-4">
@@ -153,13 +167,13 @@ const EligibilityPage = () => {
                         )}
 
                         {results && (
-                            <div className="space-y-4">
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                                    {t('eligibility_page.sections.results')} <span className="bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">{results.length}</span>
+                            <div className="space-y-4 print:mt-8">
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white print:text-black flex items-center gap-2">
+                                    {t('eligibility_page.sections.results')} <span className="bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs print:bg-gray-200">{results.length}</span>
                                 </h3>
                                 {results.map((item, idx) => (
-                                    <div key={idx} className="bg-white/80 dark:bg-white/5 rounded-xl p-5 shadow-lg border border-gray-200 dark:border-white/10 flex items-start gap-4 backdrop-blur-sm">
-                                        <div className={item.eligible ? "text-green-400" : "text-red-400"}>
+                                    <div key={idx} className="bg-white/80 dark:bg-white/5 rounded-xl p-5 shadow-lg border border-gray-200 dark:border-white/10 flex items-start gap-4 backdrop-blur-sm print:shadow-none print:border-gray-300 print:break-inside-avoid print:bg-white">
+                                        <div className={item.eligible ? "text-green-400 print:text-green-600" : "text-red-400 print:text-red-600"}>
                                             {item.eligible ? <CheckCircle size={24} /> : <XCircle size={24} />}
                                         </div>
                                         <div className="flex-1">

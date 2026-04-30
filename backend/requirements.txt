@@ -19,5 +19,12 @@ pytest
 httpx
 python-docx
 openai-whisper
-openai-whisper
 twilio
+tenacity
+slowapi
+sentry-sdk
+psycopg2-binary
+supabase
+beautifulsoup4
+apscheduler
+email-validator

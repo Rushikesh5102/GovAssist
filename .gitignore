@@ -33,3 +33,5 @@ yarn-error.log*
 brain_backup/
 .gemini/
 copy of important files for antigravity/
+*.db
+*.sqlite

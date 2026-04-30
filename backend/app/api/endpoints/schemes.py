@@ -7,6 +7,7 @@ from app.models.scheme import Scheme as SchemeModel
 from app.models.user import User
 from app.api.deps import get_current_user_optional, get_current_user
 from app.services.eligibility_service import EligibilityService
+from app.services.cache import get_cache, set_cache
 import json
 
 router = APIRouter()
@@ -49,7 +50,27 @@ def get_schemes(
     if ministry:
         query = query.filter(SchemeModel.ministry == ministry)
         
+    # Attempt to retrieve from cache
+    cache_key = f"schemes:search={search}:cat={category}:min={ministry}"
+    cached_data = get_cache(cache_key)
+    if cached_data:
+        return cached_data
+
     results = query.all()
+    
+    # Convert SQLAlchemy objects to dicts for caching to avoid serialization errors
+    response_data = []
+    for r in results:
+        # Pydantic model dump is safe for JSON caching
+        schema_obj = Scheme.from_orm(r)
+        response_data.append(schema_obj.dict())
+        
+    if response_data:
+        set_cache(cache_key, response_data, expire_seconds=3600)
+    
+    # We return results normally if not cached, or response_data
+    # Returning response_data (list of dicts) is valid for FastAPI since response_model is List[Scheme]
+    results = response_data
     
     if not results and not search and not category and not ministry:
         # Hardcoded Fallback at Database/API Layer
@@ -159,6 +180,12 @@ def get_eligible_schemes(
         return results
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/categories", response_model=List[str])
+def get_categories(db: Session = Depends(get_db)):
+    categories = db.query(SchemeModel.category).distinct().all()
+    # categories is a list of tuples like [('Agriculture',), ('Health',)]
+    return [c[0] for c in categories if c[0]]
 
 @router.get("/{scheme_id}", response_model=Scheme)
 def get_scheme_details(scheme_id: int, db: Session = Depends(get_db)):

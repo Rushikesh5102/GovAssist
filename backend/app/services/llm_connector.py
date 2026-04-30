@@ -141,8 +141,14 @@ class LLMConnector:
             HumanMessage(content=user_query)
         ]
         
+        from tenacity import retry, stop_after_attempt, wait_exponential
+        
+        @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
+        def _invoke_llm():
+            return self.llm.invoke(messages)
+            
         try:
-            response = self.llm.invoke(messages)
+            response = _invoke_llm()
             content = response.content
             
             # Handle list content
@@ -157,7 +163,7 @@ class LLMConnector:
                 
             return content
         except Exception as e:
-            print(f"LLM Invocation Failed: {e}. Falling back to Mock Mode.")
+            print(f"LLM Invocation Failed after retries: {e}. Falling back to mock response.")
             return self._get_mock_response(user_query)
 
 llm_connector = LLMConnector()

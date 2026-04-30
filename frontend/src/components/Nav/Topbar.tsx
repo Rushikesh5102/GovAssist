@@ -78,17 +78,6 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                 </Link>
                             );
                         })}
-
-                        {/* New Chat Button (Highlighted) */}
-                        {/* Sign Up Button (Only if not logged in) */}
-                        {!user && (
-                            <Link
-                                to="/signup"
-                                className="ml-2 px-4 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-saffron to-saffron-dim text-white hover:shadow-neon-saffron transition-all transform hover:-translate-y-0.5 border border-saffron-glow/30"
-                            >
-                                {t('auth.signup.btn_signup')}
-                            </Link>
-                        )}
                     </div>
 
                     {/* Right Actions */}
@@ -166,12 +155,20 @@ const Topbar = ({ onOpenSettings }: TopbarProps) => {
                                 </AnimatePresence>
                             </div>
                         ) : (
-                            <Link
-                                to="/login"
-                                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
-                            >
-                                Sign In
-                            </Link>
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    to="/login"
+                                    className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    className="px-4 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-saffron to-saffron-dim text-white hover:shadow-neon-saffron transition-all transform hover:-translate-y-0.5 border border-saffron-glow/30"
+                                >
+                                    {t('auth.signup.btn_signup')}
+                                </Link>
+                            </div>
                         )}
                     </div>
 
